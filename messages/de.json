@@ -1,0 +1,22 @@
+{
+    "Navigation": {
+        "atelier": "Das Atelier",
+        "bespoke": "Maßanfertigungen",
+        "printed": "Papier & Druck",
+        "gallery": "Die Galerie",
+        "supplies": "Zubehör"
+    },
+    "Hero": {
+        "title": "Kuration eines Machers",
+        "subtitle": "Maßgeschneiderte Artefakte & Handwerkliche Erzählungen",
+        "cta": "Sammlung erkunden"
+    },
+    "Discovery": {
+        "bespoke_desc": "Arbeiten Sie an einem einzigartigen Artefakt mit, das exklusiv für Ihre Geschichte entworfen wurde.",
+        "bespoke_btn": "Auftrag starten",
+        "pod_desc": "Kuratierte Papierkunst und Drucke – wir verwandeln flüchtige Momente in bleibende Erinnerungsstücke.",
+        "gallery_desc": "Eine visuelle Chronik der Reise des Machers – die raue Schönheit des Handwerks durch die Linse eingefangen.",
+        "supplies_desc": "Professionelle Werkzeuge und seltene Materialien, kuratiert für den anspruchsvollen Handwerker.",
+        "explore_btn": "Mehr entdecken"
+    }
+}

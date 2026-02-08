@@ -1,0 +1,41 @@
+{
+    "Navigation": {
+        "home": "Home",
+        "atelier": "The Atelier",
+        "bespoke": "Bespoke Commissions",
+        "printed": "Printed Designs",
+        "gallery": "The Lens Gallery",
+        "supplies": "Makers Supplies"
+    },
+    "Hero": {
+        "title": "Curation of a Maker",
+        "subtitle": "Bespoke Artifacts & Handcrafted Narratives",
+        "cta": "Explore the Collection"
+    },
+    "Discovery": {
+        "bespoke_desc": "Collaborate on a unique artifact designed exclusively for your narrative.",
+        "bespoke_btn": "Start Commission",
+        "pod_desc": "Artisan prints and fine paper goods, crafted to turn your fleeting narratives into lasting artifacts.",
+        "gallery_desc": "A visual chronicle of the maker's journey—capturing the raw beauty of the craft through the lens.",
+        "supplies_desc": "Professional grade tools and rare materials, curated for the discerning artisan.",
+        "explore_btn": "Explore More"
+    },
+    "Inventory": {
+        "title": "Maker Supplies",
+        "subtitle": "Essentials for your own creations",
+        "item_stock": "In Stock",
+        "item_low_stock": "Low Stock",
+        "currency": "€"
+    },
+    "Categories": {
+        "atelier": "The Atelier",
+        "gallery": "The Lens Gallery",
+        "printing": "Printing Services",
+        "supplies": "Maker Supplies"
+    },
+    "Footer": {
+        "bio": "Handmade gifts filled with heart and meaning. Based in Cologne, Germany.",
+        "explore": "Explore",
+        "legal": "Legal & Trust"
+    }
+}

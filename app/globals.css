@@ -1,26 +1,143 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "tailwindcss-animate";
 
-@theme inline {
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes ken-burns {
+    0% {
+      transform: scale(1);
+    }
+
+    100% {
+      transform: scale(1.1);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility glow-turquoise {
+  box-shadow: 0 0 15px rgba(42, 139, 139, 0.4);
+  /* transition: box-shadow 0.3s ease-in-out; Already handled by general transitions if added to button */
+}
+
+@utility animate-ken-burns {
+  animation: ken-burns 20s ease-out infinite alternate;
+}
+
+@utility luxury-shadow {
+  box-shadow: 0 10px 30px -15px rgba(0, 77, 77, 0.1);
+}
+
+
+/* Artisan Apothecary Palette - HSL Mappings */
+:root {
+  /* Cloud Dancer for backgrounds */
+  --background: hsl(40 20% 96%);
+  --foreground: hsl(0 0% 20%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 20%);
+
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(0 0% 20%);
+
+  /* Deep Teal Recalibration */
+  --primary: #004d4d;
+  --primary-foreground: #F8F6F1;
+
+  --primary-teal: #004d4d;
+  --primary-teal-dark: #002b2b;
+  --primary-teal-light: #e6f0f0;
+  --antique-white: #F8F6F1;
+
+  --secondary: #e6f0f0;
+  --secondary-foreground: #002b2b;
+
+  --muted: #e6f0f0;
+  --muted-foreground: #004d4d;
+
+  /* Turquoise Accent */
+  --accent: hsl(180 54% 35%);
+  --accent-foreground: hsl(40 20% 96%);
+
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(210 40% 98%);
+
+  --border: hsl(40 10% 88%);
+  --input: hsl(40 10% 88%);
+  --ring: hsl(180 54% 35%);
+
+  --radius: 0.5rem;
+
+  --color-gold: #D4AF37;
+  --color-beige: #F5F5DC;
+
+  --font-serif: var(--font-cormorant-garamond);
+  --font-sans: var(--font-inter);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }

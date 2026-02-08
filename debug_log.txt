@@ -1,0 +1,365 @@
+
+> temp_app@0.1.0 dev
+> next dev
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\Larak\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\Larak\.gemini\antigravity\playground\empty-radiation\package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.178.27:3000
+- Environments: .env.local
+
+✓ Starting...
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Ready in 1596ms
+○ Compiling / ...
+Supabase URL: https://ovpmkdyvpgpyozmlmbez.supabase.co
+ GET / 200 in 4.7s (compile: 4.2s, proxy.ts: 94ms, render: 372ms)
+Supabase URL: https://ovpmkdyvpgpyozmlmbez.supabase.co
+ GET / 200 in 65ms (compile: 6ms, proxy.ts: 7ms, render: 52ms)
+⚠ Cross origin request detected from 192.168.178.27 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+Supabase URL: https://ovpmkdyvpgpyozmlmbez.supabase.co
+ GET / 200 in 165ms (compile: 73ms, proxy.ts: 14ms, render: 79ms)
+✓ Compiled in 238ms
+Supabase URL: https://ovpmkdyvpgpyozmlmbez.supabase.co
+ GET / 200 in 244ms (compile: 53ms, proxy.ts: 5ms, render: 186ms)
+ GET / 200 in 131ms (compile: 62ms, proxy.ts: 6ms, render: 64ms)
+⨯ ReferenceError: inter is not defined
+    at RootLayout (app\layout.tsx:10:27)
+   8 |   return (
+   9 |     <html lang="en" suppressHydrationWarning>
+> 10 |       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground relative pb-[env(safe-area-inset-bottom)]`}>
+     |                           ^
+  11 |         {/* Film Grain Overlay */}
+  12 |         <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-[9999] mix-blend-multiply bg-[url('/noise.svg')]"></div>
+  13 |         {children} {
+  digest: '3706363346'
+}
+⨯ ReferenceError: inter is not defined
+    at RootLayout (app\layout.tsx:10:27)
+   8 |   return (
+   9 |     <html lang="en" suppressHydrationWarning>
+> 10 |       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground relative pb-[env(safe-area-inset-bottom)]`}>
+     |                           ^
+  11 |         {/* Film Grain Overlay */}
+  12 |         <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-[9999] mix-blend-multiply bg-[url('/noise.svg')]"></div>
+  13 |         {children} {
+  digest: '3706363346'
+}
+ GET / 200 in 395ms (compile: 207ms, proxy.ts: 6ms, render: 183ms)
+ GET / 500 in 355ms (compile: 106ms, proxy.ts: 4ms, render: 245ms)
+⨯ ReferenceError: Inter is not defined
+    at module evaluation (app\layout.tsx:4:15)
+    at module evaluation (C:\Users\Larak\.gemini\antigravity\playground\empty-radiation\.next\dev\server\chunks\ssr\[root-of-the-server]__cb9fb96e._.js:14:47)
+  2 |
+  3 | // 1. Make sure 'inter' is defined here
+> 4 | const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+    |               ^
+  5 | const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
+  6 |
+  7 | export default function RootLayout({ children }: { children: React.ReactNode }) {
+⨯ ReferenceError: Inter is not defined
+    at module evaluation (app\layout.tsx:4:15)
+    at module evaluation (C:\Users\Larak\.gemini\antigravity\playground\empty-radiation\.next\dev\server\chunks\ssr\[root-of-the-server]__cb9fb96e._.js:14:47)
+  2 |
+  3 | // 1. Make sure 'inter' is defined here
+> 4 | const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+    |               ^
+  5 | const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
+  6 |
+  7 | export default function RootLayout({ children }: { children: React.ReactNode }) { {
+  page: '/'
+}
+ GET / 500 in 1610ms (compile: 1470ms, proxy.ts: 7ms, render: 133ms)
+⨯ ReferenceError: Inter is not defined
+    at module evaluation (app\layout.tsx:4:15)
+    at module evaluation (C:\Users\Larak\.gemini\antigravity\playground\empty-radiation\.next\dev\server\chunks\ssr\[root-of-the-server]__cb9fb96e._.js:14:47)
+  2 |
+  3 | // 1. Make sure 'inter' is defined here
+> 4 | const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+    |               ^
+  5 | const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
+  6 |
+  7 | export default function RootLayout({ children }: { children: React.ReactNode }) { {
+  page: '/'
+}
+⨯ ReferenceError: Inter is not defined
+    at module evaluation (app\layout.tsx:4:15)
+    at module evaluation (C:\Users\Larak\.gemini\antigravity\playground\empty-radiation\.next\dev\server\chunks\ssr\[root-of-the-server]__cb9fb96e._.js:14:47)
+  2 |
+  3 | // 1. Make sure 'inter' is defined here
+> 4 | const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+    |               ^
+  5 | const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
+  6 |
+  7 | export default function RootLayout({ children }: { children: React.ReactNode }) { {
+  page: '/'
+}
+ GET / 500 in 552ms (compile: 537ms, proxy.ts: 5ms, render: 10ms)
+✓ Compiled in 72ms
+ GET / 200 in 339ms (compile: 121ms, proxy.ts: 4ms, render: 214ms)
+ GET / 200 in 77ms (compile: 7ms, proxy.ts: 5ms, render: 65ms)
+ GET / 200 in 50ms (compile: 4ms, proxy.ts: 3ms, render: 43ms)
+✓ Compiled in 269ms
+✓ Compiled in 107ms
+ GET / 200 in 306ms (compile: 79ms, proxy.ts: 3ms, render: 224ms)
+ GET / 404 in 673ms (compile: 467ms, proxy.ts: 71ms, render: 135ms)
+ GET / 200 in 450ms (compile: 165ms, proxy.ts: 9ms, render: 276ms)
+ GET / 200 in 215ms (compile: 16ms, proxy.ts: 162ms, render: 37ms)
+ GET / 200 in 468ms (compile: 163ms, proxy.ts: 51ms, render: 254ms)
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⨯ unhandledRejection: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⨯ unhandledRejection:  Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+✓ Compiled in 103ms
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+✓ Compiled in 66ms
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+⚠ Failed to reload dynamic routes: Error: You cannot use different slug names for the same dynamic path ('projectId' !== 'token').
+    at ignore-listed frames
+ GET /login 200 in 1125ms (compile: 920ms, proxy.ts: 33ms, render: 172ms)
+ POST /login 200 in 363ms (compile: 6ms, proxy.ts: 6ms, render: 351ms)
+ GET / 200 in 175ms (compile: 93ms, proxy.ts: 3ms, render: 80ms)
+ POST /login 303 in 975ms (compile: 4ms, proxy.ts: 5ms, render: 966ms)
+ GET /<img>.jpg 404 in 190ms (compile: 94ms, render: 97ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET / 200 in 191ms (compile: 4ms, proxy.ts: 4ms, render: 183ms)
+ GET /<img>.jpg 404 in 85ms (compile: 50ms, render: 36ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET / 200 in 22ms (compile: 4ms, proxy.ts: 4ms, render: 15ms)
+ GET /?category=Bespoke 200 in 21ms (compile: 3ms, proxy.ts: 3ms, render: 14ms)
+ GET /?category=Boutique 200 in 26ms (compile: 6ms, proxy.ts: 4ms, render: 16ms)
+ GET /?category=Merch 200 in 21ms (compile: 3ms, proxy.ts: 3ms, render: 15ms)
+ GET /?category=Gallery 200 in 22ms (compile: 4ms, proxy.ts: 3ms, render: 14ms)
+ GET /?category=Supply 200 in 24ms (compile: 4ms, proxy.ts: 4ms, render: 15ms)
+ GET /?category=Supply 200 in 27ms (compile: 6ms, proxy.ts: 5ms, render: 16ms)
+ GET /?category=Gallery 200 in 22ms (compile: 3ms, proxy.ts: 4ms, render: 15ms)
+ GET /login 200 in 33ms (compile: 3ms, proxy.ts: 4ms, render: 26ms)
+ POST /login 200 in 309ms (compile: 3ms, proxy.ts: 4ms, render: 302ms)
+ POST /login 200 in 291ms (compile: 6ms, proxy.ts: 5ms, render: 280ms)
+ GET /?code=7055480c-8f2a-490e-a41d-9be9cae094df 200 in 65ms (compile: 4ms, proxy.ts: 4ms, render: 57ms)
+ GET /<img>.jpg 404 in 40ms (compile: 7ms, render: 33ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET / 200 in 27ms (compile: 6ms, proxy.ts: 4ms, render: 17ms)
+ GET /?category=Bespoke 200 in 22ms (compile: 4ms, proxy.ts: 3ms, render: 15ms)
+ GET /?category=Supply 200 in 26ms (compile: 5ms, proxy.ts: 5ms, render: 17ms)
+ GET /?category=Gallery 200 in 32ms (compile: 6ms, proxy.ts: 5ms, render: 21ms)
+ GET /?category=POD 200 in 22ms (compile: 5ms, proxy.ts: 3ms, render: 15ms)
+ GET /?category=POD 200 in 57ms (compile: 4ms, proxy.ts: 3ms, render: 50ms)
+ GET /<img>.jpg 404 in 45ms (compile: 6ms, render: 39ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /?category=Gallery 200 in 25ms (compile: 5ms, proxy.ts: 3ms, render: 17ms)
+ GET /?category=Supply 200 in 22ms (compile: 3ms, proxy.ts: 3ms, render: 15ms)
+ GET /?category=Bespoke 200 in 21ms (compile: 4ms, proxy.ts: 3ms, render: 14ms)
+ GET / 200 in 22ms (compile: 3ms, proxy.ts: 3ms, render: 16ms)
+ GET /?code=7055480c-8f2a-490e-a41d-9be9cae094df 200 in 30ms (compile: 7ms, proxy.ts: 3ms, render: 21ms)
+ GET /?code=7055480c-8f2a-490e-a41d-9be9cae094df 200 in 56ms (compile: 4ms, proxy.ts: 4ms, render: 48ms)
+ GET /?error=access_denied&error_code=otp_expired&error_description=Email+link+is+invalid+or+has+expired 200 in 54ms (compile: 5ms, proxy.ts: 3ms, render: 46ms)
+ GET /<img>.jpg 404 in 43ms (compile: 8ms, render: 35ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /?category=Supply 200 in 22ms (compile: 3ms, proxy.ts: 3ms, render: 16ms)
+ GET /?category=Gallery 200 in 21ms (compile: 3ms, proxy.ts: 4ms, render: 14ms)
+ GET /?category=POD 200 in 21ms (compile: 3ms, proxy.ts: 3ms, render: 15ms)
+ GET /?category=Boutique 200 in 19ms (compile: 3ms, proxy.ts: 3ms, render: 12ms)
+ GET /?category=Bespoke 200 in 21ms (compile: 3ms, proxy.ts: 3ms, render: 15ms)
+ GET / 200 in 19ms (compile: 4ms, proxy.ts: 3ms, render: 13ms)
+✓ Compiled in 99ms
+ GET / 200 in 36ms (compile: 4ms, proxy.ts: 3ms, render: 29ms)
+✓ Compiled in 68ms
+✓ Compiled in 416ms
+ GET / 200 in 47ms (compile: 8ms, proxy.ts: 4ms, render: 35ms)
+ GET / 200 in 31ms (compile: 5ms, proxy.ts: 4ms, render: 22ms)
+✓ Compiled in 71ms
+ GET / 200 in 50ms (compile: 7ms, proxy.ts: 5ms, render: 38ms)
+✓ Compiled in 97ms
+ GET / 200 in 29ms (compile: 3ms, proxy.ts: 3ms, render: 22ms)
+✓ Compiled in 60ms
+✓ Compiled in 121ms
+✓ Compiled in 97ms
+✓ Compiled in 1082ms
+ GET / 200 in 699ms (compile: 206ms, proxy.ts: 6ms, render: 487ms)
+ GET / 200 in 285ms (compile: 5ms, proxy.ts: 13ms, render: 267ms)
+ GET /<img>.jpg 404 in 50ms (compile: 10ms, render: 39ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+✓ Compiled in 102ms
+⨯ ./.gemini/antigravity/playground/empty-radiation/app/(customer)
+You cannot have two parallel pages that resolve to the same path. Please check /(admin)/dashboard and /(customer).
+
+ GET / 500 in 214ms (compile: 156ms, proxy.ts: 7ms, render: 51ms)
+ GET / 500 in 28ms (compile: 15ms, proxy.ts: 4ms, render: 9ms)
+⨯ ./.gemini/antigravity/playground/empty-radiation/app/(customer)
+You cannot have two parallel pages that resolve to the same path. Please check /(admin)/dashboard and /(customer).
+
+ GET / 500 in 29ms (compile: 9ms, proxy.ts: 4ms, render: 16ms)
+⨯ ./.gemini/antigravity/playground/empty-radiation/app/(customer)
+You cannot have two parallel pages that resolve to the same path. Please check /(admin)/dashboard and /(customer).
+
+⨯ ./.gemini/antigravity/playground/empty-radiation/app/(customer)
+You cannot have two parallel pages that resolve to the same path. Please check /(admin)/dashboard and /(customer).
+
+ GET / 500 in 39ms (compile: 13ms, proxy.ts: 6ms, render: 20ms)
+ GET / 500 in 33ms (compile: 20ms, proxy.ts: 3ms, render: 10ms)
+✓ Compiled in 99ms
+✓ Compiled in 62ms
+ GET /inventory 200 in 930ms (compile: 811ms, proxy.ts: 5ms, render: 114ms)
+Missing Printify credentials
+ POST /inventory 200 in 35ms (compile: 3ms, proxy.ts: 3ms, render: 29ms)
+Missing Printify credentials
+ POST /inventory 200 in 28ms (compile: 3ms, proxy.ts: 5ms, render: 20ms)
+Missing Printify credentials
+ POST /inventory 200 in 29ms (compile: 3ms, proxy.ts: 3ms, render: 23ms)
+ POST /inventory 200 in 32ms (compile: 3ms, proxy.ts: 4ms, render: 25ms)
+ GET / 200 in 89ms (compile: 9ms, proxy.ts: 4ms, render: 76ms)
+ GET /<img>.jpg 404 in 57ms (compile: 13ms, render: 44ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /login?tab=signin 200 in 250ms (compile: 187ms, proxy.ts: 3ms, render: 59ms)
+ GET / 200 in 461ms (compile: 4ms, proxy.ts: 263ms, render: 194ms)
+ POST /login?tab=signin 303 in 847ms (compile: 4ms, proxy.ts: 4ms, render: 839ms)
+ GET /<img>.jpg 404 in 34ms (compile: 4ms, render: 30ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /dashboard 200 in 874ms (compile: 365ms, proxy.ts: 202ms, render: 308ms)
+ GET / 200 in 79ms (compile: 5ms, proxy.ts: 5ms, render: 69ms)
+ GET /<img>.jpg 404 in 37ms (compile: 7ms, render: 30ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /login?tab=signin 200 in 28ms (compile: 5ms, proxy.ts: 4ms, render: 20ms)
+ GET / 200 in 357ms (compile: 4ms, proxy.ts: 167ms, render: 186ms)
+ POST /login?tab=signin 303 in 677ms (compile: 4ms, proxy.ts: 4ms, render: 670ms)
+ GET /<img>.jpg 404 in 33ms (compile: 5ms, render: 29ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /inventory 200 in 45ms (compile: 3ms, proxy.ts: 3ms, render: 39ms)
+ GET /inventory 200 in 284ms (compile: 4ms, proxy.ts: 240ms, render: 40ms)
+Missing Printify credentials
+ POST /inventory 200 in 178ms (compile: 3ms, proxy.ts: 155ms, render: 20ms)
+ POST /inventory 200 in 518ms (compile: 5ms, proxy.ts: 351ms, render: 162ms)
+ GET / 200 in 68ms (compile: 6ms, proxy.ts: 3ms, render: 59ms)
+ GET /<img>.jpg 404 in 37ms (compile: 5ms, render: 32ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /?category=Boutique 200 in 25ms (compile: 4ms, proxy.ts: 3ms, render: 18ms)
+ GET /?category=Merch 200 in 22ms (compile: 5ms, proxy.ts: 3ms, render: 14ms)
+ GET /?category=Boutique 200 in 22ms (compile: 4ms, proxy.ts: 3ms, render: 15ms)
+ GET / 200 in 34ms (compile: 5ms, proxy.ts: 4ms, render: 24ms)
+ GET /inventory 200 in 47ms (compile: 4ms, proxy.ts: 4ms, render: 40ms)
+ GET /login?tab=signin 200 in 25ms (compile: 4ms, proxy.ts: 3ms, render: 18ms)
+ GET / 200 in 366ms (compile: 4ms, proxy.ts: 154ms, render: 207ms)
+ POST /login?tab=signin 303 in 654ms (compile: 3ms, proxy.ts: 3ms, render: 648ms)
+ GET /<img>.jpg 404 in 31ms (compile: 4ms, render: 26ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /?category=Boutique 200 in 180ms (compile: 4ms, proxy.ts: 162ms, render: 15ms)
+ POST /inventory 200 in 497ms (compile: 4ms, proxy.ts: 349ms, render: 144ms)
+ GET /login 200 in 27ms (compile: 3ms, proxy.ts: 3ms, render: 20ms)
+ POST /?category=Boutique 303 in 403ms (compile: 6ms, proxy.ts: 266ms, render: 131ms)
+ GET /login 200 in 21ms (compile: 3ms, proxy.ts: 3ms, render: 15ms)
+ GET / 200 in 326ms (compile: 4ms, proxy.ts: 138ms, render: 184ms)
+ POST /login 303 in 626ms (compile: 3ms, proxy.ts: 3ms, render: 620ms)
+ GET /<img>.jpg 404 in 31ms (compile: 4ms, render: 28ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /?category=Boutique 200 in 161ms (compile: 4ms, proxy.ts: 145ms, render: 12ms)
+ GET /inventory 200 in 297ms (compile: 3ms, proxy.ts: 255ms, render: 38ms)
+ POST /inventory 200 in 398ms (compile: 3ms, proxy.ts: 250ms, render: 145ms)
+ GET /?category=Boutique 200 in 256ms (compile: 4ms, proxy.ts: 238ms, render: 14ms)
+ GET /?category=Bespoke 200 in 167ms (compile: 4ms, proxy.ts: 149ms, render: 14ms)
+ GET /?category=Merch 200 in 173ms (compile: 4ms, proxy.ts: 157ms, render: 12ms)
+ GET /?category=Merch 200 in 1109ms (compile: 6ms, proxy.ts: 151ms, render: 952ms)
+ GET /<img>.jpg 404 in 36ms (compile: 6ms, render: 31ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /?category=Boutique 200 in 178ms (compile: 4ms, proxy.ts: 159ms, render: 14ms)
+✓ Compiled in 103ms
+ GET /inventory 200 in 668ms (compile: 5ms, proxy.ts: 340ms, render: 323ms)
+ GET /?category=Boutique 200 in 747ms (compile: 190ms, proxy.ts: 372ms, render: 185ms)
+✓ Compiled in 242ms
+ GET /?category=Boutique 200 in 862ms (compile: 14ms, proxy.ts: 312ms, render: 536ms)
+ GET /login 200 in 40ms (compile: 8ms, proxy.ts: 3ms, render: 29ms)
+ POST /?category=Boutique 303 in 380ms (compile: 5ms, proxy.ts: 196ms, render: 178ms)
+ GET /login 200 in 42ms (compile: 6ms, proxy.ts: 5ms, render: 31ms)
+ GET /inventory 200 in 518ms (compile: 261ms, proxy.ts: 5ms, render: 252ms)
+ GET / 200 in 41ms (compile: 4ms, proxy.ts: 5ms, render: 31ms)
+ GET /<img>.jpg 404 in 75ms (compile: 11ms, render: 64ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /login?tab=signin 200 in 32ms (compile: 5ms, proxy.ts: 4ms, render: 23ms)
+ GET / 200 in 374ms (compile: 5ms, proxy.ts: 152ms, render: 216ms)
+ POST /login?tab=signin 303 in 720ms (compile: 6ms, proxy.ts: 7ms, render: 707ms)
+ GET /<img>.jpg 404 in 45ms (compile: 5ms, render: 40ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /dashboard 200 in 486ms (compile: 12ms, proxy.ts: 158ms, render: 315ms)
+ GET /inventory 200 in 347ms (compile: 5ms, proxy.ts: 283ms, render: 59ms)
+ GET /inventory 200 in 189ms (compile: 6ms, proxy.ts: 154ms, render: 29ms)
+ POST /inventory 200 in 466ms (compile: 6ms, proxy.ts: 281ms, render: 180ms)
+ GET /login 200 in 195ms (compile: 5ms, proxy.ts: 172ms, render: 18ms)
+ GET / 200 in 393ms (compile: 5ms, proxy.ts: 166ms, render: 221ms)
+ POST /login 303 in 757ms (compile: 5ms, proxy.ts: 169ms, render: 582ms)
+ GET /<img>.jpg 404 in 55ms (compile: 7ms, render: 48ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /dashboard 200 in 533ms (compile: 6ms, proxy.ts: 224ms, render: 303ms)
+ GET /?category=Bespoke 200 in 382ms (compile: 5ms, proxy.ts: 181ms, render: 196ms)
+ GET /<img>.jpg 404 in 38ms (compile: 7ms, render: 32ms)
+⨯ The requested resource isn't a valid image for /<img>.jpg received null
+ GET /?category=Boutique 200 in 186ms (compile: 4ms, proxy.ts: 161ms, render: 21ms)
+ GET /?category=Boutique 200 in 183ms (compile: 5ms, proxy.ts: 159ms, render: 19ms)
+ GET /login 200 in 47ms (compile: 5ms, proxy.ts: 4ms, render: 37ms)
+ POST /?category=Boutique 303 in 491ms (compile: 8ms, proxy.ts: 344ms, render: 139ms)
+ GET /login 200 in 36ms (compile: 7ms, proxy.ts: 4ms, render: 25ms)
+^C
