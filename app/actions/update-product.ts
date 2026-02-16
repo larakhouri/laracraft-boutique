@@ -55,7 +55,7 @@ export async function updateProduct(formData: FormData) {
 
     if (error) {
         console.error('Update Error:', error)
-        return { message: 'Failed to update product' }
+        // return { message: 'Failed to update product' }
     }
 
     // 4. Refresh Cache & Redirect

@@ -8,11 +8,12 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { CheckCircle2, Sparkles } from 'lucide-react'
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { Link } from '@/app/navigation' // Use localized Link
 
 export default function BespokePage() {
-    const tDiscovery = useTranslations('Discovery');
+    const t = useTranslations('Bespoke');
+    const tDiscovery = useTranslations('Discovery'); // Keep for backward compatibility if needed, or replace
     const supabase = createClient()
     const [isPending, setIsPending] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
@@ -77,9 +78,9 @@ export default function BespokePage() {
             {/* Unified Bespoke Header */}
             <div className="w-full pt-32 pb-16 flex flex-col items-center">
                 <Sparkles className="w-8 h-8 text-[#004d4d]/60 mb-6" strokeWidth={1.5} />
-                <h1 className="font-serif text-5xl text-stone-900 mb-4 tracking-tight">Bespoke Commissions</h1>
+                <h1 className="font-serif text-5xl text-stone-900 mb-4 tracking-tight">{t('title')}</h1>
                 <p className="font-serif italic text-stone-500 text-lg tracking-wide text-center max-w-xl mx-auto px-4">
-                    {tDiscovery('bespoke_desc')}
+                    {t('description')}
                 </p>
             </div>
 
@@ -91,15 +92,15 @@ export default function BespokePage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-stone-500 text-left max-w-4xl mx-auto">
                             <div className="space-y-2">
                                 <span className="text-[var(--color-primary)] font-bold block">01. Vision</span>
-                                <p>Share your story and inspiration through our intake form.</p>
+                                <p>{t('steps.one')}</p>
                             </div>
                             <div className="space-y-2">
                                 <span className="text-[var(--color-primary)] font-bold block">02. Design</span>
-                                <p>We collaborate on sketches and select materials (gold, preserved flora).</p>
+                                <p>{t('steps.two')}</p>
                             </div>
                             <div className="space-y-2">
                                 <span className="text-[var(--color-primary)] font-bold block">03. Creation</span>
-                                <p>Your artifact is handcrafted in the studio and documented.</p>
+                                <p>{t('steps.three')}</p>
                             </div>
                         </div>
                         <div className="mt-8">
@@ -108,7 +109,7 @@ export default function BespokePage() {
                                 className="border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white uppercase tracking-widest text-xs"
                                 onClick={() => window.open('https://calendly.com', '_blank')}
                             >
-                                Schedule Consultation
+                                {t('cta')}
                             </Button>
                         </div>
                     </div>

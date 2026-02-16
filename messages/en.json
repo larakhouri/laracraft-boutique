@@ -33,6 +33,16 @@
         "printing": "Printing Services",
         "supplies": "Maker Supplies"
     },
+    "Bespoke": {
+        "title": "Bespoke Commissions",
+        "description": "Collaborate with LaraCraft to create a custom artifact.",
+        "steps": {
+            "one": "Define your narrative vision.",
+            "two": "Select your artisan material (Acrylic, Wood, Metal).",
+            "three": "Finalize dimensions and artisan framing."
+        },
+        "cta": "Submit Design Proposal"
+    },
     "Footer": {
         "bio": "Handmade gifts filled with heart and meaning. Based in Cologne, Germany.",
         "explore": "Explore",

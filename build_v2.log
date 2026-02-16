@@ -1,0 +1,27 @@
+
+> temp_app@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 7.5s
+  Running TypeScript ...
+Failed to compile.
+
+./app/[locale]/admin/product/[id]/edit/page.tsx:38:23
+Type error: Type '(formData: FormData) => Promise<{ message: string; }>' is not assignable to type 'string | ((formData: FormData) => void | Promise<void>) | undefined'.
+  Type '(formData: FormData) => Promise<{ message: string; }>' is not assignable to type '(formData: FormData) => void | Promise<void>'.
+    Type 'Promise<{ message: string; }>' is not assignable to type 'void | Promise<void>'.
+      Type 'Promise<{ message: string; }>' is not assignable to type 'Promise<void>'.
+        Type '{ message: string; }' is not assignable to type 'void'.
+
+  36 |                 </div>
+  37 |
+> 38 |                 <form action={updateProduct} className="space-y-6">
+     |                       ^
+  39 |                     <input type="hidden" name="id" value={product.id} />
+  40 |
+  41 |                     {/* Title */}
+Next.js build worker exited with code: 1 and signal: null

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useMediaQuery } from '@/hooks/use-media-query' // Logic to detect desktop vs mobile
 import { useActionState } from 'react'
-import { submitInquiry } from '@/app/(shop)/product/actions'
+import { submitInquiry } from '@/app/[locale]/shop/product/actions';
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'

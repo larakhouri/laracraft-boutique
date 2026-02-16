@@ -6,6 +6,16 @@
         "gallery": "Die Galerie",
         "supplies": "Zubehör"
     },
+    "Bespoke": {
+        "title": "Maßgeschneiderte Aufträge",
+        "description": "Arbeiten Sie mit LaraCraft zusammen, um ein individuelles Artefakt zu schaffen.",
+        "steps": {
+            "one": "Definieren Sie Ihre erzählerische Vision.",
+            "two": "Wählen Sie Ihr handwerkliches Material (Acryl, Holz, Metall).",
+            "three": "Legen Sie Maße und Rahmung fest."
+        },
+        "cta": "Design-Vorschlag Einreichen"
+    },
     "Hero": {
         "title": "Kuration eines Machers",
         "subtitle": "Maßgeschneiderte Artefakte & Handwerkliche Erzählungen",

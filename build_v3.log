@@ -1,0 +1,61 @@
+
+> temp_app@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 6.8s
+  Running TypeScript ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/7) ...
+  Generating static pages using 11 workers (1/7) 
+  Generating static pages using 11 workers (3/7) 
+  Generating static pages using 11 workers (5/7) 
+Γ£ô Generating static pages using 11 workers (7/7) in 122.9ms
+  Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /_not-found
+Γö£ ╞Æ /[locale]
+Γö£ ╞Æ /[locale]/account
+Γö£ ╞Æ /[locale]/admin/inventory
+Γö£ ╞Æ /[locale]/admin/inventory/[id]
+Γö£ ╞Æ /[locale]/admin/inventory/edit/[id]
+Γö£ ╞Æ /[locale]/admin/inventory/new
+Γö£ ╞Æ /[locale]/admin/product/[id]/edit
+Γö£ ╞Æ /[locale]/admin/projects
+Γö£ ╞Æ /[locale]/admin/projects/[projectId]/update
+Γö£ ╞Æ /[locale]/admin/studio
+Γö£ ╞Æ /[locale]/bespoke
+Γö£ ╞Æ /[locale]/dashboard
+Γö£ ╞Æ /[locale]/gallery
+Γö£ ╞Æ /[locale]/gallery/[slug]
+Γö£ ╞Æ /[locale]/gallery/print-guide
+Γö£ ╞Æ /[locale]/login
+Γö£ ╞Æ /[locale]/makers-supplies
+Γö£ ╞Æ /[locale]/passport/[projectId]
+Γö£ ╞Æ /[locale]/print-studio
+Γö£ ╞Æ /[locale]/printed-designs
+Γö£ ╞Æ /[locale]/printing
+Γö£ ╞Æ /[locale]/printing-suite
+Γö£ ╞Æ /[locale]/product/[id]
+Γö£ ╞Æ /[locale]/refund
+Γö£ ╞Æ /[locale]/share/[token]
+Γö£ ╞Æ /[locale]/shop
+Γö£ ΓùÅ /[locale]/shop/product/[id]
+Γö£ ╞Æ /[locale]/supplies
+Γö£ ╞Æ /[locale]/the-atelier
+Γö£ ╞Æ /api/auth/reset
+Γö£ ╞Æ /api/generate
+Γö£ ╞Æ /api/inventory/new
+Γöö ╞Æ /api/webhooks/printify
+
+
+╞Æ Proxy (Middleware)
+
+Γùï  (Static)   prerendered as static content
+ΓùÅ  (SSG)      prerendered as static HTML (uses generateStaticParams)
+╞Æ  (Dynamic)  server-rendered on demand
+

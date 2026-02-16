@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, Share2 } from 'lucide-react'
 import Link from 'next/link'
-import PassportTimeline from '@/app/(customer)/passport/[projectId]/timeline' // Reusing the timeline component
+import PassportTimeline from '@/app/[locale]/passport/[projectId]/timeline' // Reusing the timeline component
 import { Metadata } from 'next'
 
 interface TimelineUpdate {

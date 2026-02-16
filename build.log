@@ -1,0 +1,75 @@
+
+> temp_app@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 3 errors:
+./app/[locale]/share/[token]/page.tsx:5:1
+Module not found: Can't resolve '@/app/(customer)/passport/[projectId]/timeline'
+  3 | import { ArrowLeft, Share2 } from 'lucide-react'
+  4 | import Link from 'next/link'
+> 5 | import PassportTimeline from '@/app/(customer)/passport/[projectId]/timeline' // Reusing the timeline component
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import { Metadata } from 'next'
+  7 |
+  8 | interface TimelineUpdate {
+
+Import map: aliased to relative './app/(customer)/passport/[projectId]/timeline' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/[locale]/shop/product/[id]/consultation-drawer.tsx:6:1
+Module not found: Can't resolve '@/app/(shop)/product/actions'
+  4 | import { useMediaQuery } from '@/hooks/use-media-query' // Logic to detect desktop vs mobile
+  5 | import { useActionState } from 'react'
+> 6 | import { submitInquiry } from '@/app/(shop)/product/actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { Button } from '@/components/ui/button'
+  8 | import { Input } from '@/components/ui/input'
+  9 | import { Textarea } from '@/components/ui/textarea'
+
+Import map: aliased to relative './app/(shop)/product/actions' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./app/[locale]/shop/product/[id]/consultation-drawer.tsx
+    ./app/[locale]/shop/product/[id]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/[locale]/shop/product/[id]/consultation-drawer.tsx:7:1
+Module not found: Can't resolve '@/app/(shop)/product/actions'
+   5 | import { useMediaQuery } from '@/hooks/use-media-query'; // Logic to detect desktop vs mobile
+   6 | import { useActionState } from 'react';
+>  7 | import { submitInquiry } from '@/app/(shop)/product/actions';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { Button } from '@/components/ui/button';
+   9 | import { Input } from '@/components/ui/input';
+  10 | import { Textarea } from '@/components/ui/textarea';
+
+Import map: aliased to relative './app/(shop)/product/actions' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./app/[locale]/shop/product/[id]/consultation-drawer.tsx
+    ./app/[locale]/shop/product/[id]/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./app/[locale]/share/[token]/page.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/[locale]/shop/product/[id]/consultation-drawer.tsx:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/[locale]/shop/product/[id]/consultation-drawer.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
