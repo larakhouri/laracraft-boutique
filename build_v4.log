@@ -1,0 +1,34 @@
+
+> temp_app@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./components/Navbar.tsx:4:10
+Ecmascript file had an error
+  2 | import { useTranslations } from 'next-intl'
+  3 | import { Link, usePathname } from '@/app/navigation'; // Use localized navigation
+> 4 | import { useRouter } from 'next/navigation'
+    |          ^^^^^^^^^
+  5 | import { UserNav } from './user-nav'
+  6 |
+  7 | export default function Navbar({ locale, user, profile }: { locale: string, user: any, profile: any }) {
+
+You're importing a component that needs `useRouter`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+Import trace:
+  Server Component:
+    ./components/Navbar.tsx
+    ./app/[locale]/layout.tsx
+
+
+    at <unknown> (./components/Navbar.tsx:4:10)

@@ -1,10 +1,10 @@
 {
     "Navigation": {
-        "atelier": "Das Atelier",
-        "bespoke": "Maßanfertigungen",
-        "printed": "Papier & Druck",
-        "gallery": "Die Galerie",
-        "supplies": "Zubehör"
+        "atelier": "THE ATELIER",
+        "bespoke": "BESPOKE",
+        "printed": "PRINTED DESIGNS",
+        "gallery": "THE LENS GALLERY",
+        "supplies": "MAKER SUPPLIES"
     },
     "Bespoke": {
         "title": "Maßgeschneiderte Aufträge",
@@ -28,5 +28,25 @@
         "gallery_desc": "Eine visuelle Chronik der Reise des Machers – die raue Schönheit des Handwerks durch die Linse eingefangen.",
         "supplies_desc": "Professionelle Werkzeuge und seltene Materialien, kuratiert für den anspruchsvollen Handwerker.",
         "explore_btn": "Mehr entdecken"
+    },
+    "Footer": {
+        "bio": "Handgefertigte Geschenke mit Herz und Meinung. Ansässig in Köln, Deutschland.",
+        "explore": "Entdecken",
+        "legal": "Rechtliches & Vertrauen",
+        "impressum": "Impressum",
+        "privacy": "Datenschutzerklärung",
+        "terms": "AGB",
+        "refund": "Widerrufsrecht"
+    },
+    "Actions": {
+        "book_appointment": "Termin vereinbaren",
+        "submit_narrative": "Erzählung abschicken",
+        "buy_now": "Jetzt kaufen"
+    },
+    "Atelier": {
+        "title": "Das Atelier",
+        "subtitle": "Maßgeschneiderte Artefakte & Handwerkliche Erzählungen",
+        "description": "Entdecken Sie unsere kuratierte Sammlung handgefertigter Artefakte.",
+        "coming_soon": "Neue Kollektion kommt bald"
     }
 }

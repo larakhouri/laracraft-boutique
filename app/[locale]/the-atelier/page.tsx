@@ -1,107 +1,81 @@
+'use client'
 import React from 'react'
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { createClient } from '@/utils/supabase/client'
 import { useTranslations } from 'next-intl'
 import { Sparkles } from 'lucide-react'
-import Link from 'next/link'
-export default async function AtelierPage() {
-    // 1. Safety Check for Translations
-    let t: (key: string) => string;
-    try {
-        t = await useTranslations('Atelier');
-    } catch (e) {
-        // Fallback if translation file is broken
-        t = (key: string) => key === 'title' ? 'The Atelier' : 'Handmade creations';
-    }
+import { Link } from '@/app/navigation'
 
-    const cookieStore = await cookies()
-    const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        {
-            cookies: {
-                getAll() { return cookieStore.getAll() },
-                setAll(cookiesToSet) { },
-            },
+export default function AtelierPage() {
+    const t = useTranslations('Atelier');
+    const supabase = createClient();
+    const [products, setProducts] = React.useState<any[]>([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        async function fetchAtelier() {
+            const { data } = await supabase
+                .from('atelier_products')
+                .select('*')
+                .order('updated_at', { ascending: false });
+
+            if (data) setProducts(data);
+            setLoading(false);
         }
-    )
-
-    // 2. Fetch Real Products
-    const { data: products, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('category_slug', 'atelier')
-        .eq('status', 'published')
-        .order('created_at', { ascending: false })
-
-    if (error) {
-        console.error("Supabase Error:", error);
-        return <div className="py-24 text-center text-red-500">Unable to load gallery.</div>;
-    }
+        fetchAtelier();
+    }, []);
 
     return (
-        <main className="min-h-screen w-full bg-[#fdfcf8] px-6 md:px-12 lg:px-24 py-24">
+        <main className="min-h-screen w-full bg-[#F8F6F1]">
 
-            {/* Header */}
-            <div className="flex flex-col items-center justify-center mb-16 space-y-4 text-center">
-                <Sparkles className="w-8 h-8 text-[#004d4d] stroke-[1.5]" />
-                <h1 className="font-serif text-4xl md:text-5xl text-[#004d4d] tracking-tight">
-                    {t('title')}
-                </h1>
-                <p className="font-serif italic text-stone-500 text-lg max-w-lg">
-                    {t('subtitle')}
-                </p>
+            {/* 🔵 HEADER SECTION: Now in Gallery Blue (#003D4D) */}
+            <div className="w-full bg-[#003D4D] py-24 px-12 md:px-24 border-b border-[#002b36] animate-in fade-in slide-in-from-bottom-12 duration-1000 ease-out">
+                <div className="max-w-[1800px] mx-auto flex flex-col items-center justify-center text-center space-y-6">
+                    <div className="p-4 bg-white/5 rounded-full border border-white/10">
+                        <Sparkles className="w-8 h-8 text-stone-200 stroke-[1px]" />
+                    </div>
+
+                    <div className="space-y-4">
+                        <h1 className="font-serif text-5xl md:text-7xl text-white italic leading-tight tracking-tight">
+                            {t('title')}
+                        </h1>
+                        <p className="text-[11px] uppercase tracking-[0.5em] text-stone-400 font-bold">
+                            {t('subtitle')}
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            {/* Grid */}
-            {products && products.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12">
-                    {products.map((item: any) => {
-                        // 3. SAFE DATA HANDLING (Prevents Crashes)
-                        // Convert price to number safely
-                        const safePrice = item.price ? Number(item.price) : 0;
-                        const displayPrice = isNaN(safePrice) ? '0.00' : safePrice.toFixed(2);
-
-                        // Check image existence
-                        const hasImage = item.image_url && item.image_url.length > 5;
-
-                        return (
-                            <Link key={item.id} href={`/product/${item.id}`} className="group cursor-pointer block">
-
-                                {/* Image Container */}
-                                <div className="aspect-[4/5] bg-stone-100 mb-4 overflow-hidden relative rounded-sm">
-                                    {hasImage ? (
-                                        <img
-                                            src={item.image_url}
-                                            alt={item.title || 'Product'}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-stone-300 italic bg-stone-50">
-                                            No Image
-                                        </div>
-                                    )}
-                                    <div className="absolute inset-0 bg-[#004d4d]/0 group-hover:bg-[#004d4d]/5 transition-all duration-500" />
+            {/* 🏺 PRODUCT GRID: On the Cream Background */}
+            <div className="px-6 md:px-12 lg:px-24 py-24">
+                {!loading && products.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 max-w-[1800px] mx-auto animate-in fade-in duration-1000 delay-500">
+                        {products.map((item) => (
+                            <Link key={item.id} href={`/product/${item.id}`} className="group block">
+                                <div className="relative aspect-square bg-white rounded-lg shadow-sm transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-xl overflow-hidden border border-stone-200">
+                                    <img
+                                        src={item.image_url}
+                                        alt={item.title}
+                                        className="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-110"
+                                    />
                                 </div>
-
-                                {/* Text Details */}
-                                <div className="text-center space-y-1">
-                                    <h3 className="font-serif text-lg text-[#004d4d] group-hover:underline decoration-1 underline-offset-4 decoration-[#004d4d]/30">
-                                        {item.title || 'Untitled'}
+                                <div className="mt-6 space-y-1 text-center">
+                                    <h3 className="font-serif text-lg text-[#003D4D] group-hover:text-stone-600 transition-colors">
+                                        {item.title}
                                     </h3>
-                                    <p className="font-sans text-xs tracking-widest text-stone-500 uppercase">
-                                        €{displayPrice}
+                                    <div className="w-8 h-[1px] bg-[#003D4D]/20 mx-auto transition-all duration-500 group-hover:w-1/2" />
+                                    <p className="text-[10px] tracking-widest text-stone-400 uppercase mt-2">
+                                        €{item.price ? Number(item.price).toFixed(2) : "0.00"}
                                     </p>
                                 </div>
                             </Link>
-                        )
-                    })}
-                </div>
-            ) : (
-                <div className="text-center py-20 opacity-50 font-serif italic text-stone-400">
-                    Preparing the collection...
-                </div>
-            )}
+                        ))}
+                    </div>
+                ) : !loading && (
+                    <div className="text-center py-20 opacity-40 font-serif italic text-[#003D4D]">
+                        {t('coming_soon')}
+                    </div>
+                )}
+            </div>
         </main>
     )
 }

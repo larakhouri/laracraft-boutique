@@ -1,167 +1,67 @@
 'use client'
-
-import { useState } from 'react'
-import { createClient } from '@/utils/supabase/client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { CheckCircle2, Sparkles } from 'lucide-react'
+import React from 'react'
 import { useTranslations } from 'next-intl'
-import { Link } from '@/app/navigation' // Use localized Link
+import { PenTool } from 'lucide-react'
 
 export default function BespokePage() {
     const t = useTranslations('Bespoke');
-    const tDiscovery = useTranslations('Discovery'); // Keep for backward compatibility if needed, or replace
-    const supabase = createClient()
-    const [isPending, setIsPending] = useState(false)
-    const [isSuccess, setIsSuccess] = useState(false)
-
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        setIsPending(true)
-
-        const formData = new FormData(e.currentTarget)
-        const name = formData.get('name') as string
-        const email = formData.get('email') as string
-        const description = formData.get('description') as string
-        const budget = formData.get('budget') as string
-
-        try {
-            const { error } = await supabase
-                .from('inquiries')
-                .insert({
-                    name,
-                    email,
-                    description,
-                    budget
-                })
-
-            if (error) throw error
-
-            setIsSuccess(true)
-        } catch (error) {
-            console.error('Submission error:', error)
-            alert('Something went wrong. Please try again.')
-        } finally {
-            setIsPending(false)
-        }
-    }
-
-    if (isSuccess) {
-        return (
-            <div className="min-h-screen bg-[#fcf8f3] flex items-center justify-center p-4">
-                <Card className="max-w-md w-full border-stone-200 shadow-lg bg-white">
-                    <CardContent className="pt-10 pb-10 flex flex-col items-center text-center space-y-4">
-                        <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-2">
-                            <CheckCircle2 className="w-8 h-8" />
-                        </div>
-                        <h2 className="text-3xl font-serif text-stone-800">Request Received</h2>
-                        <p className="text-stone-500">
-                            Thank you for sharing your vision. I will review your request and get back to you shortly to discuss bringing it to life.
-                        </p>
-                        <Button
-                            className="bg-[#2A8B8B] hover:bg-[#237070] text-white mt-6"
-                            onClick={() => window.location.href = '/'}
-                        >
-                            Return Home
-                        </Button>
-                    </CardContent>
-                </Card>
-            </div>
-        )
-    }
 
     return (
-        <div className="min-h-screen bg-[#fdfcf8] pb-24">
-            {/* Unified Bespoke Header */}
-            <div className="w-full pt-32 pb-16 flex flex-col items-center">
-                <Sparkles className="w-8 h-8 text-[#004d4d]/60 mb-6" strokeWidth={1.5} />
-                <h1 className="font-serif text-5xl text-stone-900 mb-4 tracking-tight">{t('title')}</h1>
-                <p className="font-serif italic text-stone-500 text-lg tracking-wide text-center max-w-xl mx-auto px-4">
-                    {t('description')}
-                </p>
-            </div>
+        <main className="min-h-screen w-full bg-[#F8F6F1]">
 
-            <div className="max-w-3xl mx-auto px-4">
-                <div className="text-center mb-12 space-y-4">
-                    {/* Personalization Journey */}
-                    <div className="py-8 border-t border-b border-stone-100 my-8">
-                        <h3 className="font-serif text-2xl text-stone-800 mb-4 italic">The Personalization Journey</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-stone-500 text-left max-w-4xl mx-auto">
-                            <div className="space-y-2">
-                                <span className="text-[var(--color-primary)] font-bold block">01. Vision</span>
-                                <p>{t('steps.one')}</p>
-                            </div>
-                            <div className="space-y-2">
-                                <span className="text-[var(--color-primary)] font-bold block">02. Design</span>
-                                <p>{t('steps.two')}</p>
-                            </div>
-                            <div className="space-y-2">
-                                <span className="text-[var(--color-primary)] font-bold block">03. Creation</span>
-                                <p>{t('steps.three')}</p>
-                            </div>
-                        </div>
-                        <div className="mt-8">
-                            <Button
-                                variant="outline"
-                                className="border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white uppercase tracking-widest text-xs"
-                                onClick={() => window.open('https://calendly.com', '_blank')}
-                            >
-                                {t('cta')}
-                            </Button>
-                        </div>
+            {/* 🔵 BLUE BAND HEADER: Signature Motion Engine */}
+            <div className="w-full bg-[#003D4D] py-24 px-12 md:px-24 border-b border-[#002b36] animate-in fade-in slide-in-from-bottom-12 duration-1000 ease-out">
+                <div className="max-w-[1800px] mx-auto flex flex-col items-center justify-center text-center space-y-6">
+                    <div className="p-4 bg-white/5 rounded-full border border-white/10">
+                        <PenTool className="w-8 h-8 text-stone-200 stroke-[1px]" />
+                    </div>
+
+                    <div className="space-y-4">
+                        <h1 className="font-serif text-5xl md:text-7xl text-white italic leading-tight tracking-tight uppercase">
+                            Bespoke Commissions
+                        </h1>
+                        <p className="text-[11px] uppercase tracking-[0.5em] text-stone-400 font-bold italic">
+                            Tailored Artisanry • Private Consultations
+                        </p>
                     </div>
                 </div>
-
-                <Card className="bg-white border-stone-200 shadow-md">
-                    <CardHeader className="border-b border-stone-100 pb-8">
-                        <CardTitle className="font-serif text-2xl text-stone-800">Intake Form</CardTitle>
-                        <CardDescription>Please provide as much detail as possible about your idea.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="pt-8">
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <Label htmlFor="name" className="text-stone-600">Your Name</Label>
-                                    <Input id="name" name="name" required className="bg-[#fcfaf8] border-stone-200 focus:ring-[#2A8B8B]" placeholder="Jane Doe" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="email" className="text-stone-600">Email Address</Label>
-                                    <Input id="email" name="email" type="email" required className="bg-[#fcfaf8] border-stone-200 focus:ring-[#2A8B8B]" placeholder="jane@example.com" />
-                                </div>
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="description" className="text-stone-600">Vision & Description</Label>
-                                <Textarea
-                                    id="description"
-                                    name="description"
-                                    required
-                                    className="min-h-[150px] bg-[#fcfaf8] border-stone-200 focus:ring-[#2A8B8B]"
-                                    placeholder="Describe the flowers, colors, or specific design elements you have in mind..."
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="budget" className="text-stone-600">Approximate Budget</Label>
-                                <Input id="budget" name="budget" className="bg-[#fcfaf8] border-stone-200 focus:ring-[#2A8B8B]" placeholder="e.g. $200 - $400" />
-                            </div>
-
-                            <div className="pt-4">
-                                <Button
-                                    type="submit"
-                                    disabled={isPending}
-                                    className="w-full h-12 text-lg bg-[#2A8B8B] hover:bg-[#237070] text-white"
-                                >
-                                    {isPending ? 'Sending Request...' : 'Submit Inquiry'}
-                                </Button>
-                            </div>
-                        </form>
-                    </CardContent>
-                </Card>
             </div>
-        </div>
+
+            {/* 📝 FORM SECTION: On Gallery Cream Background */}
+            <div className="px-6 md:px-12 lg:px-24 py-24 animate-in fade-in duration-1000 delay-500">
+                <div className="max-w-3xl mx-auto bg-white border border-stone-200 p-8 md:p-16 shadow-sm rounded-sm">
+                    <div className="text-center mb-12 space-y-4">
+                        <h2 className="font-serif text-3xl text-[#003D4D]">Project Inquiry</h2>
+                        <p className="text-stone-500 font-serif italic text-sm">
+                            Please describe your vision. I will contact you personally to discuss the chronicle of your piece.
+                        </p>
+                    </div>
+
+                    <form className="space-y-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-2">
+                                <label className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Name</label>
+                                <input type="text" className="w-full bg-transparent border-b border-stone-200 py-2 focus:border-[#003D4D] outline-none transition-colors" />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Email</label>
+                                <input type="email" className="w-full bg-transparent border-b border-stone-200 py-2 focus:border-[#003D4D] outline-none transition-colors" />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Project Details</label>
+                            <textarea rows={4} className="w-full bg-transparent border-b border-stone-200 py-2 focus:border-[#003D4D] outline-none transition-colors resize-none" />
+                        </div>
+
+                        <div className="pt-8 flex justify-center">
+                            <button className="bg-[#003D4D] text-white px-16 py-4 text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-[#002b36] transition-all duration-500 shadow-lg">
+                                Submit Inquiry →
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
     )
 }

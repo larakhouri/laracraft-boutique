@@ -60,6 +60,13 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
         .eq('customer_id', user.id)
         .order('updated_at', { ascending: false })
 
+    // 4. Fetch Featured Artifacts (Published Only)
+    const { data: featuredArtifacts } = await supabase
+        .from('products')
+        .select('*')
+        .eq('is_published', true)
+        .limit(3);
+
     return (
         <div className="min-h-screen bg-[#F8F6F1] pb-20">
             {/* Hero / Welcome */}
@@ -163,16 +170,24 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                         </Link>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                        {FEATURED_ARTIFACTS.map((product) => (
+                        {featuredArtifacts?.map((product: any) => (
                             <Link key={product.id} href={`/${locale}/shop`} className="group block bg-white border border-stone-100 shadow-sm hover:shadow-md transition-all">
                                 <div className="aspect-square relative bg-stone-100 overflow-hidden">
-                                    {/* Placeholder Image Logic */}
-                                    <div className="absolute inset-0 flex items-center justify-center text-stone-300 font-serif italic bg-stone-50">
-                                        Antigravity Placeholder
-                                    </div>
+                                    {product.image_url ? (
+                                        <Image
+                                            src={product.image_url}
+                                            alt={product.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center text-stone-300 font-serif italic bg-stone-50">
+                                            No Image
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="p-4">
-                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 block mb-1">{product.category}</span>
+                                    <span className="text-[10px] uppercase tracking-widest text-stone-400 block mb-1">{product.category_slug || 'Artifact'}</span>
                                     <h4 className="font-serif text-lg text-stone-800 group-hover:text-[#2A8B8B] transition-colors">{product.title}</h4>
                                     <span className="text-sm font-medium text-[#c5a065] mt-2 block">${product.price}</span>
                                 </div>

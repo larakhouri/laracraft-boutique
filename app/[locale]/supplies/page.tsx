@@ -1,112 +1,79 @@
 'use client'
+import React from 'react'
+import { createClient } from '@/utils/supabase/client'
+import { Brush } from 'lucide-react'
+import { Link } from '@/app/navigation'
 
-import { useTranslations } from 'next-intl'
-import Image from 'next/image'
-import Link from 'next/link'
-// FIX: Imported Briefcase to resolve the ReferenceError
-import { Briefcase } from 'lucide-react'
-import { cn } from '@/lib/utils'
+export default function MakersSuppliesPage() {
+    const supabase = createClient();
+    const [products, setProducts] = React.useState<any[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
-const SUPPLIES = [
-    {
-        id: 's1',
-        title: 'Vintage Steel Shears',
-        price: 45,
-        image: '/product-journal.jpg',
-        desc: 'High-carbon steel scissors for precision textile work.'
-    },
-    {
-        id: 's2',
-        title: 'Solid Brass Caliper',
-        price: 32,
-        image: '/product-ring.jpg',
-        desc: 'Essential for measuring gemstones and detailed millwork.'
-    },
-    {
-        id: 's3',
-        title: 'Artisan Resin Kit',
-        price: 65,
-        image: '/product-pendant.jpg',
-        desc: 'Our proprietary blend of crystal-clear epoxy for jewelry.'
-    },
-    {
-        id: 's4',
-        title: 'Gold Leaf Booklet',
-        price: 28,
-        image: '/<img>.png',
-        desc: '24k gold leaf sheets for gilding and embellishment.'
-    }
-]
+    React.useEffect(() => {
+        async function fetchProducts() {
+            const { data } = await supabase
+                .from('supplies_products')
+                .select('*')
+                .order('updated_at', { ascending: false });
 
-export default function SuppliesPage({ params }: { params: { locale: string } }) {
-    const t = useTranslations('Navigation');
-    const tDiscovery = useTranslations('Discovery');
+            if (data) setProducts(data);
+            setLoading(false);
+        }
+        fetchProducts();
+    }, []);
 
     return (
-        <div className="min-h-screen bg-[#fdfcf8] pb-24">
-            {/* Unified Bespoke Header: No white band, Icon centered */}
-            <div className="w-full pt-32 pb-16 flex flex-col items-center bg-[#fdfcf8]">
-                {/* Icon centered above title like the Bespoke page */}
-                <Briefcase className="w-8 h-8 text-[#004d4d]/60 mb-8" strokeWidth={1} />
+        <main className="min-h-screen w-full bg-[#F8F6F1]">
 
-                <h1 className="font-serif text-5xl text-stone-900 mb-6 tracking-tight text-center">
-                    {t('Supplies')}
-                </h1>
+            {/* 🔵 BLUE BAND HEADER: Consistent Motion Engine */}
+            <div className="w-full bg-[#003D4D] py-24 px-12 md:px-24 border-b border-[#002b36] animate-in fade-in slide-in-from-bottom-12 duration-1000 ease-out">
+                <div className="max-w-[1800px] mx-auto flex flex-col items-center justify-center text-center space-y-6">
+                    <div className="p-4 bg-white/5 rounded-full border border-white/10">
+                        <Brush className="w-8 h-8 text-stone-200 stroke-[1px]" />
+                    </div>
 
-                {/* Subtitle using the "Curated" italic serif style */}
-                <p className="font-serif italic text-stone-500 text-xl tracking-wide text-center max-w-2xl mx-auto px-6">
-                    {tDiscovery('supplies_desc')}
-                </p>
+                    <div className="space-y-4">
+                        <h1 className="font-serif text-5xl md:text-7xl text-white italic leading-tight tracking-tight uppercase">
+                            Makers Supplies
+                        </h1>
+                        <p className="text-[11px] uppercase tracking-[0.5em] text-stone-400 font-bold italic">
+                            Professional tools from my social content
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            {/* Catalog Grid - Set to 4 columns to fill the wide interface */}
-            <div className="w-full px-12 md:px-32 mt-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-                    {SUPPLIES.map((item) => (
-                        <div key={item.id} className="group flex flex-col">
-                            {/* Image Container - Pure and Borderless */}
-                            <div className="relative aspect-[4/5] bg-stone-100 overflow-hidden mb-6">
-                                <Image
-                                    src={item.image}
-                                    alt={item.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-1000 grayscale-[10%] group-hover:grayscale-0"
-                                />
-                            </div>
-
-                            {/* Product Info - Minimalist Typography */}
-                            <div className="flex flex-col flex-grow text-center items-center">
-                                <h3 className="font-serif text-2xl text-stone-800 mb-2 font-medium tracking-tight">
-                                    {item.title}
-                                </h3>
-                                <p className="font-serif italic text-stone-400 text-sm leading-relaxed mb-6 max-w-[80%]">
-                                    {item.desc}
-                                </p>
-
-                                <div className="mt-auto w-full flex flex-col items-center gap-4">
-                                    <span className="font-sans text-stone-300 text-xs tracking-[0.2em] uppercase">
-                                        ${item.price}
-                                    </span>
-                                    <Link
-                                        href={`/${params.locale}/bespoke?product=${encodeURIComponent(item.title)}`}
-                                        className="w-full py-3 border border-stone-200 text-stone-600 text-[10px] tracking-[0.3em] uppercase hover:bg-[#004d4d] hover:text-white hover:border-[#004d4d] transition-all duration-500 rounded-none"
-                                    >
-                                        Inquire for Details
-                                    </Link>
+            {/* 🏺 PRODUCT GRID: On Gallery Cream Background */}
+            <div className="px-6 md:px-12 lg:px-24 py-24">
+                {!loading && products.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 max-w-[1800px] mx-auto animate-in fade-in duration-1000 delay-500">
+                        {products.map((item) => (
+                            <Link key={item.id} href={`/product/${item.external_id}`} className="group block">
+                                <div className="relative aspect-square bg-white rounded-lg shadow-sm transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-xl overflow-hidden border border-stone-200">
+                                    <img
+                                        src={item.image_url}
+                                        alt={item.title}
+                                        className="w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-110"
+                                    />
                                 </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Wholesale Footer */}
-                <div className="mt-32 text-center border-t border-stone-100 pt-20">
-                    <p className="font-sans text-stone-400 text-[10px] tracking-[0.4em] uppercase mb-6">Wholesale Inquiries</p>
-                    <Link href={`/${params.locale}/bespoke`} className="text-[#004d4d] font-serif italic text-2xl hover:text-stone-400 transition-colors duration-500">
-                        Collaborate with the Studio
-                    </Link>
-                </div>
+                                <div className="mt-6 text-center space-y-1">
+                                    <h3 className="font-serif text-lg text-[#003D4D] group-hover:text-stone-600 transition-colors">
+                                        {item.title}
+                                    </h3>
+                                    <div className="w-8 h-[1px] bg-[#003D4D]/20 mx-auto transition-all duration-500 group-hover:w-1/2" />
+                                    <p className="text-[10px] tracking-widest text-stone-400 uppercase mt-2 font-medium">
+                                        Professional Gear
+                                    </p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                ) : !loading && (
+                    <div className="text-center py-20 opacity-40 font-serif italic text-[#003D4D]">
+                        No supplies found in the creator vault.
+                    </div>
+                )}
             </div>
-        </div>
+        </main>
     )
 }

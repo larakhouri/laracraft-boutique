@@ -37,7 +37,7 @@ export function SiteFooter() {
                 <div className="space-y-4">
                     <h4 className="font-serif text-lg italic opacity-70">{t('explore')}</h4>
                     <ul className="space-y-2 text-sm font-sans tracking-wide">
-                        <li><Link href={`/${locale}/atelier`} className="hover:underline">The Atelier</Link></li>
+                        <li><Link href={`/${locale}/the-atelier`} className="hover:underline">The Atelier</Link></li>
                         <li><Link href={`/${locale}/gallery`} className="hover:underline">The Lens Gallery</Link></li>
                         <li><Link href={`/${locale}/print-studio`} className="hover:underline">Printing Services</Link></li>
                         <li><Link href={`/${locale}/inventory`} className="hover:underline">Maker Supplies</Link></li>
@@ -48,10 +48,10 @@ export function SiteFooter() {
                 <div className="space-y-4">
                     <h4 className="font-serif text-lg italic opacity-70">{t('legal')}</h4>
                     <ul className="space-y-2 text-sm font-sans tracking-wide opacity-80">
-                        <li><Link href={`/${locale}/impressum`} className="hover:underline">Impressum</Link></li>
-                        <li><Link href={`/${locale}/privacy`} className="hover:underline">Datenschutz (Privacy)</Link></li>
-                        <li><Link href={`/${locale}/terms`} className="hover:underline">AGB (Terms)</Link></li>
-                        <li><Link href={`/${locale}/refund`} className="hover:underline">Return & Refund Policy</Link></li>
+                        <li><Link href={`/${locale}/impressum`} className="hover:underline">{t('impressum')}</Link></li>
+                        <li><Link href={`/${locale}/privacy`} className="hover:underline">{t('privacy')}</Link></li>
+                        <li><Link href={`/${locale}/terms`} className="hover:underline">{t('terms')}</Link></li>
+                        <li><Link href={`/${locale}/refund`} className="hover:underline">{t('refund')}</Link></li>
                         <li className="pt-4 text-xs opacity-50">
                             © {new Date().getFullYear()} LaraCraft. Cologne, Germany.
                         </li>

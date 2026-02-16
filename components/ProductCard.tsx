@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -17,15 +19,18 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, locale }: ProductCardProps) {
+    const [imgSrc, setImgSrc] = React.useState(product.image_url);
+
     return (
         <div className="group relative bg-white shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm overflow-hidden flex flex-col h-full">
             <Link href={`/${locale}/product/${product.id}`} className="block relative aspect-[4/5] overflow-hidden bg-stone-100">
                 {product.image_url ? (
                     <Image
-                        src={product.image_url}
+                        src={imgSrc || '/placeholder-artisan.jpg'}
                         alt={product.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out grayscale-[10%] group-hover:grayscale-0 hover:glow-turquoise"
+                        onError={() => setImgSrc('/placeholder-midnight-teal.svg')}
                     />
                 ) : (
                     <div className="flex items-center justify-center h-full text-stone-300 font-serif italic bg-stone-50">

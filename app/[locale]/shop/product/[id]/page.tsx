@@ -8,6 +8,8 @@ import CraftStory from './craft-story'
 import ConsultationDrawer from './consultation-drawer'
 
 // 1. Static Optimization: Pre-render all product pages
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
     const supabase = await createClient()
     const { data: products } = await supabase.from('products').select('id')

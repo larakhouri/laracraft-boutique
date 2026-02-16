@@ -1,19 +1,32 @@
 import type { NextConfig } from "next";
 import path from "path";
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  /* config options here */
   distDir: '.next',
   reactCompiler: true,
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: '**.amazonaws.com',
+        pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ovpmkdyvpgpyozmlmbez.supabase.co',
+        pathname: '/**',
+      }
     ],
   },
-  webpack: (config) => {
+  webpack: (config: any) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       "tailwindcss": path.resolve(__dirname, "node_modules/tailwindcss"),
@@ -22,7 +35,5 @@ const nextConfig: NextConfig = {
     return config;
   },
 };
-
-const withNextIntl = require('next-intl/plugin')();
 
 export default withNextIntl(nextConfig);

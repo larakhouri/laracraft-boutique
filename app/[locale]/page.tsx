@@ -14,19 +14,21 @@ export default function HomePage() {
     ];
 
     return (
-        <main className="min-h-[70vh] w-full bg-[#FBFBF9] flex flex-col justify-center px-12 py-20">
-            <div className="max-w-[1400px] mx-auto w-full grid grid-cols-2 md:grid-cols-5 gap-20">
-                {categories.map((cat) => (
-                    <Link href={cat.href} key={cat.key} className="flex flex-col items-center group">
-                        {/* ORIGINAL ICON: No shadow, thin stroke */}
-                        <cat.icon strokeWidth={1} className="w-10 h-10 mb-6 text-stone-300 group-hover:text-[#003D4D] transition-colors" />
+        <main className="min-h-screen w-full bg-[#fdfcf8] bg-[url('/subtle-paper-texture.png')] flex flex-col justify-center px-12 py-20">
+            <section className="animate-fade-in transition-opacity duration-1000">
+                <div className="max-w-[1400px] mx-auto w-full grid grid-cols-2 md:grid-cols-5 gap-20">
+                    {categories.map((cat) => (
+                        <Link href={cat.href} key={cat.key} className="flex flex-col items-center group">
+                            {/* ORIGINAL ICON: No shadow, thin stroke */}
+                            <cat.icon strokeWidth={1} className="w-10 h-10 mb-6 text-stone-300 group-hover:text-[#003D4D] transition-colors" />
 
-                        <h3 className="text-[10px] uppercase tracking-[0.4em] text-stone-400 group-hover:text-[#003D4D] font-bold text-center">
-                            {t(cat.key)}
-                        </h3>
-                    </Link>
-                ))}
-            </div>
+                            <h3 className="text-[10px] uppercase tracking-[0.4em] text-stone-400 group-hover:text-[#003D4D] font-bold text-center">
+                                {t(cat.key)}
+                            </h3>
+                        </Link>
+                    ))}
+                </div>
+            </section>
         </main>
     );
 }

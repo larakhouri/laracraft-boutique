@@ -21,14 +21,16 @@ export async function proxy(request: NextRequest) {
     const intlResponse = intlMiddleware(request);
 
     // 4. Merge headers/cookies to keep session alive
-    supabaseResponse.headers.forEach((value, key) => {
-        intlResponse.headers.set(key, value);
-    });
-    supabaseResponse.cookies.getAll().forEach((cookie) => {
-        intlResponse.cookies.set(cookie.name, cookie.value);
-    });
+    if (supabaseResponse && intlResponse) {
+        supabaseResponse.headers.forEach((value, key) => {
+            intlResponse.headers.set(key, value);
+        });
+        supabaseResponse.cookies.getAll().forEach((cookie) => {
+            intlResponse.cookies.set(cookie.name, cookie.value);
+        });
+    }
 
-    return intlResponse;
+    return intlResponse || supabaseResponse;
 }
 
 export const config = {

@@ -8,13 +8,14 @@ export async function GET(request: Request) {
 
     if (code) {
         const supabase = await createClient()
-        // This "exchanges" the temporary code for a real user session
+        // 🟢 FIX: Exchange code for session (This logs the user IN)
         const { error } = await supabase.auth.exchangeCodeForSession(code)
         if (!error) {
+            // Redirect to the intended page (or home)
             return NextResponse.redirect(`${origin}${next}`)
         }
     }
 
-    // If something goes wrong, send them to a login error page
-    return NextResponse.redirect(`${origin}/login?error=auth-code-error`)
+    // 🔴 ERROR: If code exchange fails, return to login with a message
+    return NextResponse.redirect(`${origin}/login?error=auth_failed`)
 }

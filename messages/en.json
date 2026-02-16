@@ -46,6 +46,21 @@
     "Footer": {
         "bio": "Handmade gifts filled with heart and meaning. Based in Cologne, Germany.",
         "explore": "Explore",
-        "legal": "Legal & Trust"
+        "legal": "Legal & Trust",
+        "impressum": "Impressum",
+        "privacy": "Privacy Policy",
+        "terms": "Terms & Conditions",
+        "refund": "Return Policy"
+    },
+    "Actions": {
+        "book_appointment": "Book Appointment",
+        "submit_narrative": "Submit Narrative",
+        "buy_now": "Buy Now"
+    },
+    "Atelier": {
+        "title": "The Atelier",
+        "subtitle": "Bespoke Artifacts & Handcrafted Narratives",
+        "description": "Explore our curated collection of handmade artifacts.",
+        "coming_soon": "New Collection Arriving Soon"
     }
 }
