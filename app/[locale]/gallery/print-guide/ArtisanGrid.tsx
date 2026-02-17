@@ -4,11 +4,10 @@ import Image from 'next/image';
 export default async function ArtisanGrid() {
     const supabase = await createClient();
 
-    // Fetching the 33-34 formats tagged from Gelato
+    // Fetching from the new 'printing_guide' table
     const { data: formats } = await supabase
-        .from('products')
+        .from('printing_guide')
         .select('*')
-        .eq('category_slug', 'printing-guide-example')
         .order('title', { ascending: true });
 
     return (

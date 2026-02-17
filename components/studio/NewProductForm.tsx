@@ -26,8 +26,30 @@ export default function NewProductForm({ locale }: { locale: string }) {
         'atelier': 'atelier_products',
         'gallery': 'products',
         'supplies': 'supplies_products',
-        'gift': 'lifestyle_products'
+        'gift': 'lifestyle_products',
+        'printed': 'printing_guide' // 👈 Redirected from printed_designs
     }
+
+    // ... (rest of code)
+
+    {/* VAULT SELECTION */ }
+    <div className="space-y-2">
+        <label className="text-[10px] uppercase tracking-widest text-stone-500 font-bold">
+            Destined Vault
+        </label>
+        <select
+            value={formData.vault}
+            onChange={(e) => setFormData({ ...formData, vault: e.target.value })}
+            className="w-full p-3 bg-white border border-stone-200 text-sm font-serif italic outline-none focus:border-[#2A8B8B] appearance-none cursor-pointer"
+            style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic' }}
+        >
+            <option value="atelier" className="not-italic font-sans py-2">The Bespoke Atelier</option>
+            <option value="gallery" className="not-italic font-sans py-2">The Lens Gallery</option>
+            <option value="supplies" className="not-italic font-sans py-2">Maker Supplies</option>
+            <option value="gift" className="not-italic font-sans py-2">Lifestyle & Gifts</option>
+            <option value="printed" className="not-italic font-sans py-2">The Printing Guide (Wall Prints)</option> {/* 👈 Updated Label */}
+        </select>
+    </div>
 
     // 2. Multi-Upload Handler
     const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
