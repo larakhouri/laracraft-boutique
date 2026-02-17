@@ -10,26 +10,34 @@ export default async function ProductPage(props: {
     const { id } = await props.params;
     const supabase = await createClient();
 
-    // 🔍 1. Check Atelier Vault first
-    let { data: product } = await supabase
-        .from('atelier_products')
-        .select('*, images, description_de, description_ar') // 👈 Ensure these are selected
-        .eq('id', id)
-        .single();
+    // 1. Define all possible vaults
+    const vaults = [
+        'atelier_products',
+        'products',
+        'supplies_products',
+        'lifestyle_products',
+        'printing_guide',
+        'printed_designs'
+    ]
 
-    // 🔍 2. Fallback to Gallery if not found
-    if (!product) {
-        const { data: gelatoProduct } = await supabase
-            .from('products')
-            .select('*, images, description_de, description_ar') // 👈 Ensure these are selected
-            .eq('id', id)
-            .single();
+    let product = null;
+    // 2. Scan every vault
+    for (const table of vaults) {
+        // We check BOTH id and external_id to be safe
+        const { data, error } = await supabase
+            .from(table)
+            .select('*')
+            .or(`id.eq.${id},external_id.eq.${id}`)
+            .maybeSingle()
 
-        product = gelatoProduct;
+        if (data) {
+            product = data
+            break
+        }
     }
 
     if (!product) {
-        console.error(`❌ Product Resolver: ID ${id} not found in Atelier or Gallery.`);
+        console.error(`❌ Product Resolver: ID ${id} not found in any Artisan Vault.`);
         notFound();
     }
 

@@ -10,7 +10,7 @@ export default function PrintedDesignsPage() {
 
     React.useEffect(() => {
         async function fetchProducts() {
-            const { data } = await supabase.from('printed_designs').select('*').order('updated_at', { ascending: false });
+            const { data } = await supabase.from('printing_guide').select('*').order('updated_at', { ascending: false });
             if (data) setProducts(data);
         }
         fetchProducts();
