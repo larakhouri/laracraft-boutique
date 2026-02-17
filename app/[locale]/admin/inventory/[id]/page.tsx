@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { notFound } from 'next/navigation'
-import { ProductForm } from '@/components/studio/product-form'
+import EditProductForm from '@/components/studio/EditProductForm'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
@@ -30,7 +30,12 @@ export default async function EditProductPage(props: { params: Promise<{ id: str
 
                 <div className="bg-white p-8 rounded-sm shadow-sm">
                     {/* Pass the existing product data to your form */}
-                    <ProductForm initialData={product} />
+                    <EditProductForm
+                        product={product}
+                        vault="gallery" // Default fallback since this route doesn't seem to track vault
+                        targetTable="products"
+                        locale={locale}
+                    />
                 </div>
             </div>
         </div>

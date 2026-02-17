@@ -15,7 +15,7 @@ import {
     LayoutDashboard,
     ExternalLink
 } from 'lucide-react'
-import { ProductForm } from '@/components/studio/product-form'
+import NewProductForm from '@/components/studio/NewProductForm'
 
 export default async function StudioPage(props: { params: Promise<{ locale: string }> }) {
     const { locale } = await props.params;
@@ -158,7 +158,7 @@ export default async function StudioPage(props: { params: Promise<{ locale: stri
                     <div className="lg:col-span-1">
                         <div className="sticky top-8">
                             <h3 className="text-xs font-sans tracking-[0.2em] uppercase text-stone-400 mb-6">Create New Piece</h3>
-                            <ProductForm />
+                            <NewProductForm locale={locale} />
                         </div>
                     </div>
                 </div>
