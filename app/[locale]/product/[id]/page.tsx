@@ -58,25 +58,34 @@ export default async function ProductPage(props: {
                         </div>
 
                         {/* Supporting Detail Grid */}
-                        {product.images && product.images.length > 0 && (
-                            <div className="grid grid-cols-4 gap-4">
-                                {product.images.map((img: string, idx: number) => (
-                                    // Skip the main image if it's already in the gallery array
-                                    img !== product.image_url && (
-                                        <div
-                                            key={idx}
-                                            className="aspect-square rounded-lg overflow-hidden border border-stone-200 bg-stone-50 cursor-zoom-in group"
-                                        >
-                                            <img
-                                                src={img}
-                                                alt={`Detail ${idx}`}
-                                                className="w-full h-full object-cover transition-opacity group-hover:opacity-80"
-                                            />
-                                        </div>
-                                    )
-                                ))}
-                            </div>
-                        )}
+                        {(() => {
+                            const rawImages = product.images;
+                            const gallery = Array.isArray(rawImages)
+                                ? rawImages
+                                : (typeof rawImages === 'string' && rawImages.startsWith('{')
+                                    ? rawImages.replace(/{|}/g, '').split(',').filter(Boolean)
+                                    : []);
+
+                            return gallery.length > 0 && (
+                                <div className="grid grid-cols-4 gap-4">
+                                    {gallery.map((img: string, idx: number) => (
+                                        // Skip the main image if it's already in the gallery array
+                                        img !== product.image_url && (
+                                            <div
+                                                key={idx}
+                                                className="aspect-square rounded-lg overflow-hidden border border-stone-200 bg-stone-50 cursor-zoom-in group"
+                                            >
+                                                <img
+                                                    src={img}
+                                                    alt={`Detail ${idx}`}
+                                                    className="w-full h-full object-cover transition-opacity group-hover:opacity-80"
+                                                />
+                                            </div>
+                                        )
+                                    ))}
+                                </div>
+                            )
+                        })()}
                     </div>
 
                     {/* --- PRODUCT INFO (Stories in 3 Languages) --- */}
