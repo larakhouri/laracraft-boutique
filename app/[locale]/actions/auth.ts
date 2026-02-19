@@ -16,8 +16,13 @@ const signupSchema = z.object({
     full_name: z.string().min(2, "Name is required"),
 })
 
+import { getLocale } from 'next-intl/server'
+
+// ... existing imports
+
 export async function login(prevState: any, formData: FormData) {
     const supabase = await createClient()
+    const locale = await getLocale() // 👈 Get the current language vault
 
     const data = {
         email: formData.get('email') as string,
@@ -41,19 +46,22 @@ export async function login(prevState: any, formData: FormData) {
 
     const { data: { user } } = await supabase.auth.getUser()
 
-    // Check if admin or Lara to redirect to inventory
-    let target = '/'
+    // 🎯 REFIX: Send Lara and Admins to the valid Dashboard
+    let target = `/${locale}`
+
     if (user) {
+        // Redirect Lara and Admins to the valid Dashboard
         if (user.email === 'lara.khouri19@gmail.com') {
-            target = '/inventory'
+            target = `/${locale}/dashboard`
         } else {
             const { data: profile } = await supabase
                 .from('profiles')
                 .select('role')
                 .eq('id', user.id)
                 .single()
+
             if (profile?.role === 'super_admin' || profile?.role === 'staff') {
-                target = '/inventory'
+                target = `/${locale}/dashboard`
             }
         }
     }
@@ -64,6 +72,13 @@ export async function login(prevState: any, formData: FormData) {
 }
 
 export async function signup(prevState: any, formData: FormData) {
+    // ... existing signup code ...
+    // Note: User didn't ask to change signup redirect specifically, but mentioned "Update signOut and signup (if redirecting)". 
+    // The current signup returns a message, not a separate redirect. I will leave it as is unless I see it redirects. 
+    // Looking at the file, it returns an object.
+
+    // ... (keeping existing signup logic for now as it doesn't redirect)
+
     const supabase = await createClient()
 
     const rawData = {
@@ -92,24 +107,15 @@ export async function signup(prevState: any, formData: FormData) {
         return { error: error.message, success: false, message: '' }
     }
 
-    // Return success state for the UI to handle (Toast)
-    // We don't redirect immediately so the user sees the "Welcome" toast/message?
-    // Or we redirect to a dashboard?
-    // User request: "When a user clicks 'Create Account', use a Shadcn Toast to say: 'Welcome to the studio!'"
-    // This implies we stay on page or redirect with a flag. 
-    // Usually signup implies immediate login in Supabase if email confirmation is disabled, 
-    // or "Check your email" if enabled.
-    // Assuming Email Confirm is ON by default in Supabase, but for this demo maybe we just want message.
-    // If we return success, the client component updates.
-
     return { success: true, message: 'Welcome to the studio! Your artisan profile is ready.', error: '' }
 }
 
 export async function signOut() {
     const supabase = await createClient()
+    const locale = await getLocale() // Get locale
     await supabase.auth.signOut()
     revalidatePath('/', 'layout')
-    redirect('/login')
+    redirect(`/${locale}/login`) // 👈 Stay in the same language
 }
 
 export async function revalidateRole() {

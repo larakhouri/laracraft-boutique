@@ -22,6 +22,11 @@ const amiri = Amiri({
 export const metadata: Metadata = {
   title: "Lara Craft Gifts | Bespoke Artisan Goods",
   description: "Discover handcrafted treasures and follow the journey of your bespoke commissions.",
+  icons: {
+    icon: '/logo.png', // 👈 Points to your official brand asset
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  }
 };
 
 export default async function RootLayout({

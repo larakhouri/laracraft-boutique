@@ -16,21 +16,23 @@ export async function GET() {
         });
         const data = await res.json();
 
-        // 2. Update Supabase
+        // 2. Update Supabase with "Gatekeeper" Logic
         const updates = data.products.map(async (p: any) => {
-            // Note: This matches the user's requested logic using .filter() although .eq() is standard Supabase syntax.
-            // I will keep the user's structure but ensure it works with the Supabase JS client which typically uses .eq()
-            // The user provided: supabase.from('products').update(...).filter('external_id', 'eq', p.id)
-            // Standard is: supabase.from('products').update(...).eq('external_id', p.id)
-            // I will use the user's exact logical intent but standard syntax if .filter is alias for .eq or just use .eq if .filter is deprecated/not standard in this context.
-            // Actually, checking Supabase docs, .filter() exists. I will use the user's provided code block exactly as requested to be safe, 
-            // or slightly corrected if I know it will fail.
-            // User wrote: .filter('external_id', 'eq', p.id);
+            // "Gatekeeper": Check product title for category
+            const isGallery = p.title.toLowerCase().includes('gallery');
+            const table = isGallery ? 'atelier_products' : 'printing_guide';
+
+            // Logic for "Missing Image" - check both possible URL locations
+            const imageUrl = p.files?.[0]?.preview_url || p.files?.[0]?.file_url;
 
             return supabase
-                .from('products')
-                .update({ image_url: p.preview_url }) // 🟢 This is the fresh Feb 16 key
-                .eq('external_id', p.id); // Using .eq() as it is the standard and safest alias for filter('col', 'eq', val)
+                .from(table)
+                .upsert({
+                    title: p.title,
+                    external_id: p.id,
+                    image_url: imageUrl,
+                    updated_at: new Date().toISOString()
+                }, { onConflict: 'external_id' });
         });
 
         await Promise.all(updates);

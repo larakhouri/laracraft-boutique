@@ -8,6 +8,9 @@ import { ArrowRight, Package, RefreshCw, Sparkles, Image as ImageIcon, Briefcase
 import { revalidateRole } from '@/app/[locale]/actions/auth'
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
+import GelatoSync from '@/components/dashboard/GelatoSync'
+import DashboardSync from '@/components/dashboard/DashboardSync'
+import { syncAllArtisanVaults } from '@/app/actions/sync-gelato'
 
 // Mock Data for "Basement Inventory" Preview
 const FEATURED_ARTIFACTS = [
@@ -95,9 +98,27 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                                 <RefreshCw className="h-4 w-4" />
                             </Button>
                         </form>
+                        <form action={syncAllArtisanVaults}>
+                            <Button className="bg-[#003D4D] text-white hover:bg-[#002b36] font-sans text-[10px] tracking-widest font-bold px-6">
+                                <RefreshCw className="mr-2 h-3 w-3" /> CAPTURE GELATO ASSETS
+                            </Button>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            {/* 🟢 Sync Gate (Admin Only) */}
+            {
+                (profile?.role === 'super_admin' || user.email === 'lara.khouri19@gmail.com') && (
+                    <div className="w-full px-12 md:px-32 py-8 bg-stone-50 border-b border-stone-200 space-y-4">
+                        <div className="flex justify-between items-center">
+                            <h3 className="text-lg font-serif text-stone-800">Admin Controls</h3>
+                            <DashboardSync />
+                        </div>
+                        <GelatoSync />
+                    </div>
+                )
+            }
 
             <div className="w-full px-12 md:px-32 py-12 space-y-16">
 

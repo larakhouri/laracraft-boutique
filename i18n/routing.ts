@@ -6,9 +6,11 @@ export const routing = defineRouting({
     locales: ['en', 'de', 'ar'],
 
     // Used when no locale matches
-    defaultLocale: 'en'
+    defaultLocale: 'en',
+
+    // Explicitly set prefix strategy
+    localePrefix: 'always'
 });
 
-// Use these new navigation utilities instead of createSharedPathnamesNavigation
 export const { Link, redirect, usePathname, useRouter } =
     createNavigation(routing);

@@ -5,6 +5,8 @@ import { useTranslations } from 'next-intl'
 import { Sparkles } from 'lucide-react'
 import { Link } from '@/app/navigation'
 
+import { ProductSkeleton } from '@/components/ui/ProductSkeleton'
+
 export default function AtelierPage() {
     const t = useTranslations('Atelier');
     const supabase = createClient();
@@ -12,7 +14,8 @@ export default function AtelierPage() {
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        async function fetchAtelier() {
+        // Force a minimum load time to prevent flash
+        const timer = setTimeout(async () => {
             const { data } = await supabase
                 .from('atelier_products')
                 .select('*')
@@ -20,8 +23,9 @@ export default function AtelierPage() {
 
             if (data) setProducts(data);
             setLoading(false);
-        }
-        fetchAtelier();
+        }, 1000); // 1s minimum skeleton show
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
@@ -47,8 +51,14 @@ export default function AtelierPage() {
 
             {/* 🏺 PRODUCT GRID: On the Cream Background */}
             <div className="px-6 md:px-12 lg:px-24 py-24">
-                {!loading && products.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 max-w-[1800px] mx-auto animate-in fade-in duration-1000 delay-500">
+                {loading ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 max-w-[1800px] mx-auto">
+                        {[...Array(8)].map((_, i) => (
+                            <ProductSkeleton key={i} />
+                        ))}
+                    </div>
+                ) : products.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 max-w-[1800px] mx-auto animate-in fade-in duration-1000">
                         {products.map((item) => (
                             <Link key={item.id} href={`/product/${item.id}`} className="group block">
                                 <div className="relative aspect-square bg-white rounded-lg shadow-sm transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-xl overflow-hidden border border-stone-200">
@@ -70,7 +80,7 @@ export default function AtelierPage() {
                             </Link>
                         ))}
                     </div>
-                ) : !loading && (
+                ) : (
                     <div className="text-center py-20 opacity-40 font-serif italic text-[#003D4D]">
                         {t('coming_soon')}
                     </div>

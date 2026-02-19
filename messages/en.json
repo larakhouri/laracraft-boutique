@@ -62,5 +62,26 @@
         "subtitle": "Bespoke Artifacts & Handcrafted Narratives",
         "description": "Explore our curated collection of handmade artifacts.",
         "coming_soon": "New Collection Arriving Soon"
+    },
+    "PrintingGuide": {
+        "heroPrefix": "Bespoke Formats",
+        "heroSuffix": "Explore Guide",
+        "buttonLabel": "Printing Guide",
+        "title": "Printing Artifact Guide",
+        "close": "Close Guide",
+        "materials": {
+            "acrylic": {
+                "title": "Acrylic Glass",
+                "desc": "Deep gloss, 4mm thickness, high-end \"floating\" look with 3D depth."
+            },
+            "paper": {
+                "title": "Fine Art Paper (Hahnemühle)",
+                "desc": "Museum-quality matte finish, ultra-rich textures, archival longevity."
+            },
+            "aluminum": {
+                "title": "Brushed Aluminum",
+                "desc": "Industrial matte aesthetic, ultra-durable, reflections in metallic areas."
+            }
+        }
     }
 }

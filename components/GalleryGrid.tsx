@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
+import { Skeleton } from "@/components/ui/skeleton"
+
 interface GalleryItem {
     id: string
     title: string
@@ -11,9 +13,21 @@ interface GalleryItem {
     image_url: string
 }
 
-export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
+export default function GalleryGrid({ items, loading }: { items: GalleryItem[], loading?: boolean }) {
     const params = useParams()
     const locale = params?.locale as string || 'en'
+
+    if (loading) {
+        return (
+            <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+                {[...Array(6)].map((_, i) => (
+                    <div key={i} className="break-inside-avoid mb-8">
+                        <Skeleton className="w-full h-[400px] rounded-sm" />
+                    </div>
+                ))}
+            </div>
+        )
+    }
 
     return (
         <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">

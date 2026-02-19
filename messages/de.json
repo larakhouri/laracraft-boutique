@@ -48,5 +48,26 @@
         "subtitle": "Maßgeschneiderte Artefakte & Handwerkliche Erzählungen",
         "description": "Entdecken Sie unsere kuratierte Sammlung handgefertigter Artefakte.",
         "coming_soon": "Neue Kollektion kommt bald"
+    },
+    "PrintingGuide": {
+        "heroPrefix": "Maßgeschneiderte Formate",
+        "heroSuffix": "Leitfaden erkunden",
+        "buttonLabel": "Druck-Leitfaden",
+        "title": "Leitfaden für Druckartefakte",
+        "close": "Leitfaden schließen",
+        "materials": {
+            "acrylic": {
+                "title": "Acrylglas",
+                "desc": "Tiefer Glanz, 4mm Stärke, hochwertiger \"schwebender\" Look mit 3D-Tiefe."
+            },
+            "paper": {
+                "title": "Fine Art Papier (Hahnemühle)",
+                "desc": "Matte Oberfläche in Museumsqualität, ultra-reiche Texturen, archivarische Langlebigkeit."
+            },
+            "aluminum": {
+                "title": "Gebürstetes Aluminium",
+                "desc": "Industrielle matte Ästhetik, extrem langlebig, Reflexionen in metallischen Bereichen."
+            }
+        }
     }
 }

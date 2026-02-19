@@ -21,13 +21,14 @@ export default function NewProductForm({ locale }: { locale: string }) {
         desc_ar: ''
     })
 
-    // 1. Unified Table Map
+    // 1. Unified Table Map (Updated to your new clean schema)
     const tableMap: Record<string, string> = {
         'atelier': 'atelier_products',
-        'gallery': 'products',
-        'supplies': 'supplies_products',
-        'gift': 'lifestyle_products',
-        'printed': 'printing_guide' // 👈 Redirected from printed_designs
+        'gallery': 'gallery_products', // 👈 Updated from 'products'
+        'printed': 'printed_designs',  // 👈 Pointing to Lara Craft Store table
+        'guide': 'printing_guide',     // 👈 Pointing to Printing Guide table
+        'gifts': 'FinalGifts',         // 👈 Pointing to Gifts table
+        'supplies': 'supplies'         // 👈 Pointing to Maker Supplies table
     }
 
     // ... (rest of code)
@@ -167,9 +168,11 @@ export default function NewProductForm({ locale }: { locale: string }) {
                         style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic' }}
                     >
                         <option value="atelier" className="not-italic font-sans py-2">The Bespoke Atelier</option>
-                        <option value="gallery" className="not-italic font-sans py-2">The Lens Gallery</option>
+                        <option value="gallery" className="not-italic font-sans py-2">The Lens Gallery (Lara Originals)</option> {/* 👈 Updated Label */}
+                        <option value="printed" className="not-italic font-sans py-2">Printed Designs (Lara Craft Store)</option>
+                        <option value="guide" className="not-italic font-sans py-2">Printing Guide (Wall Prints)</option>
+                        <option value="gifts" className="not-italic font-sans py-2">Final Gifts (Dropshipping)</option>
                         <option value="supplies" className="not-italic font-sans py-2">Maker Supplies</option>
-                        <option value="gift" className="not-italic font-sans py-2">Lifestyle & Gifts</option>
                     </select>
                 </div>
 

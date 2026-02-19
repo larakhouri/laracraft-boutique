@@ -1,8 +1,10 @@
 'use client'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
+import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Instagram, Mail } from 'lucide-react'
+import { SIX_PILLARS } from '@/config/navigation'
 
 export function SiteFooter() {
     const t = useTranslations('Footer')
@@ -15,7 +17,15 @@ export function SiteFooter() {
 
                 {/* Col 1: Brand & Bio */}
                 <div className="space-y-4">
-                    <h3 className="font-serif text-2xl font-medium tracking-tight">LaraCraft</h3>
+                    <Link href="/" className="block">
+                        <Image
+                            src="/logo.png"
+                            alt="LaraCraft"
+                            width={200}
+                            height={200}
+                            className="h-10 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
+                        />
+                    </Link>
                     <p className="font-sans text-xs uppercase tracking-widest leading-relaxed opacity-80 max-w-xs">
                         {t('bio')}
                     </p>
@@ -33,14 +43,17 @@ export function SiteFooter() {
                     </div>
                 </div>
 
-                {/* Col 2: Explore (The 4 Doors) */}
+                {/* Col 2: Explore (The 6 Pillars) */}
                 <div className="space-y-4">
                     <h4 className="font-serif text-lg italic opacity-70">{t('explore')}</h4>
-                    <ul className="space-y-2 text-sm font-sans tracking-wide">
-                        <li><Link href={`/${locale}/the-atelier`} className="hover:underline">The Atelier</Link></li>
-                        <li><Link href={`/${locale}/gallery`} className="hover:underline">The Lens Gallery</Link></li>
-                        <li><Link href={`/${locale}/print-studio`} className="hover:underline">Printing Services</Link></li>
-                        <li><Link href={`/${locale}/inventory`} className="hover:underline">Maker Supplies</Link></li>
+                    <ul className="grid grid-cols-2 md:grid-cols-1 gap-2 text-sm font-sans tracking-wide">
+                        {SIX_PILLARS.map((link) => (
+                            <li key={link.key}>
+                                <Link href={link.href} className="hover:underline">
+                                    {link.name[locale as keyof typeof link.name] || link.name.en}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
 
@@ -48,10 +61,10 @@ export function SiteFooter() {
                 <div className="space-y-4">
                     <h4 className="font-serif text-lg italic opacity-70">{t('legal')}</h4>
                     <ul className="space-y-2 text-sm font-sans tracking-wide opacity-80">
-                        <li><Link href={`/${locale}/impressum`} className="hover:underline">{t('impressum')}</Link></li>
-                        <li><Link href={`/${locale}/privacy`} className="hover:underline">{t('privacy')}</Link></li>
-                        <li><Link href={`/${locale}/terms`} className="hover:underline">{t('terms')}</Link></li>
-                        <li><Link href={`/${locale}/refund`} className="hover:underline">{t('refund')}</Link></li>
+                        <li><Link href="/impressum" className="hover:underline">{t('impressum')}</Link></li>
+                        <li><Link href="/privacy" className="hover:underline">{t('privacy')}</Link></li>
+                        <li><Link href="/terms" className="hover:underline">{t('terms')}</Link></li>
+                        <li><Link href="/refund" className="hover:underline">{t('refund')}</Link></li>
                         <li className="pt-4 text-xs opacity-50">
                             © {new Date().getFullYear()} LaraCraft. Cologne, Germany.
                         </li>
