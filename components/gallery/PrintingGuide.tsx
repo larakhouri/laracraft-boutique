@@ -1,59 +1,33 @@
 'use client'
-import { useState } from 'react'
+import React from 'react'
+import { Link } from '@/app/navigation'
 import { useTranslations } from 'next-intl'
-import { X } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 export default function PrintingGuide() {
-    const [isOpen, setIsOpen] = useState(false);
     const t = useTranslations('PrintingGuide');
 
     return (
-        <div className="fixed bottom-10 right-10 z-[100]">
-            {/* Wider button for text instead of just a circle */}
-            <button
-                onClick={() => setIsOpen(true)}
-                className="px-6 h-14 bg-[#003D4D] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all group border border-teal-400/20"
+        <div className="fixed bottom-10 right-10 z-[100] animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <Link
+                href="/gallery/print-guide"
+                className="group flex items-center gap-6 bg-[#003D4D]/95 backdrop-blur-md border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-full pl-8 pr-2 py-2 hover:bg-[#002b36] hover:border-[#C5A059]/50 transition-all duration-500 hover:shadow-[#C5A059]/10"
             >
-                <span className="font-serif italic text-sm font-bold tracking-widest uppercase">
-                    {t('buttonLabel')}
-                </span>
-            </button>
-
-            {/* Modal - Enforcing LTR for consistent Artisan aesthetic */}
-            {isOpen && (
-                <div dir="ltr" className="fixed inset-0 bg-stone-900/60 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300 z-[110]" onClick={() => setIsOpen(false)}>
-                    <div className="bg-white rounded-[2rem] p-10 max-w-2xl w-full shadow-2xl overflow-y-auto max-h-[90vh] relative" onClick={e => e.stopPropagation()}>
-
-                        <button
-                            onClick={() => setIsOpen(false)}
-                            className="absolute top-8 right-8 p-2 hover:bg-stone-100 rounded-full transition-colors"
-                        >
-                            <X className="w-6 h-6 text-stone-400" />
-                        </button>
-
-                        <h2 className="font-serif text-4xl italic text-[#003D4D] mb-8 pr-12">{t('title')}</h2>
-
-                        <div className="grid gap-8">
-                            <div className="border-b border-stone-100 pb-4">
-                                <h3 className="font-bold text-lg mb-1">{t('materials.acrylic.title')}</h3>
-                                <p className="text-stone-500 text-sm">{t('materials.acrylic.desc')}</p>
-                            </div>
-                            <div className="border-b border-stone-100 pb-4">
-                                <h3 className="font-bold text-lg mb-1">{t('materials.paper.title')}</h3>
-                                <p className="text-stone-500 text-sm">{t('materials.paper.desc')}</p>
-                            </div>
-                            <div className="border-b border-stone-100 pb-4">
-                                <h3 className="font-bold text-lg mb-1">{t('materials.aluminum.title')}</h3>
-                                <p className="text-stone-500 text-sm">{t('materials.aluminum.desc')}</p>
-                            </div>
-                        </div>
-
-                        <button onClick={() => setIsOpen(false)} className="mt-10 w-full py-4 bg-stone-100 hover:bg-stone-200 rounded-xl font-serif italic transition-colors">
-                            {t('close')}
-                        </button>
-                    </div>
+                {/* Text Instructions: "If you want to print... Discover the Guide" */}
+                <div className="flex flex-col justify-center border-r border-white/10 pr-6 py-1">
+                    <span className="text-[10px] leading-tight uppercase tracking-[0.05em] font-medium text-stone-300 max-w-[180px]">
+                        {t('heroPrefix')}
+                    </span>
+                    <span className="text-[11px] mt-1 uppercase tracking-widest text-[#C5A059] font-bold italic">
+                        {t('heroSuffix')}
+                    </span>
                 </div>
-            )}
+
+                {/* Visual Action Icon */}
+                <div className="bg-[#C5A059] rounded-full p-4 group-hover:bg-[#d4b477] transition-all duration-500 shadow-lg flex items-center justify-center">
+                    <ArrowRight className="w-5 h-5 text-[#003D4D] group-hover:translate-x-1 transition-transform duration-500" />
+                </div>
+            </Link>
         </div>
-    );
+    )
 }

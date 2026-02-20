@@ -50,24 +50,10 @@
         "coming_soon": "Neue Kollektion kommt bald"
     },
     "PrintingGuide": {
-        "heroPrefix": "Maßgeschneiderte Formate",
-        "heroSuffix": "Leitfaden erkunden",
-        "buttonLabel": "Druck-Leitfaden",
-        "title": "Leitfaden für Druckartefakte",
-        "close": "Leitfaden schließen",
-        "materials": {
-            "acrylic": {
-                "title": "Acrylglas",
-                "desc": "Tiefer Glanz, 4mm Stärke, hochwertiger \"schwebender\" Look mit 3D-Tiefe."
-            },
-            "paper": {
-                "title": "Fine Art Papier (Hahnemühle)",
-                "desc": "Matte Oberfläche in Museumsqualität, ultra-reiche Texturen, archivarische Langlebigkeit."
-            },
-            "aluminum": {
-                "title": "Gebürstetes Aluminium",
-                "desc": "Industrielle matte Ästhetik, extrem langlebig, Reflexionen in metallischen Bereichen."
-            }
-        }
+        "heroPrefix": "Möchten Sie ein Foto drucken?",
+        "heroSuffix": "Zum Druck-Leitfaden",
+        "buttonLabel": "Druckoptionen entdecken",
+        "title": "Leitfaden für Kunstdrucke",
+        "close": "Zurück"
     }
 }

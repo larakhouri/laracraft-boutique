@@ -1,41 +1,15 @@
+// app/[locale]/dashboard/page.tsx
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Package, RefreshCw, Sparkles, Image as ImageIcon, Briefcase, Scroll } from 'lucide-react'
+import { ArrowRight, Package, RefreshCw, Image as ImageIcon, Briefcase, Scroll } from 'lucide-react'
 import { revalidateRole } from '@/app/[locale]/actions/auth'
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
-import GelatoSync from '@/components/dashboard/GelatoSync'
-import DashboardSync from '@/components/dashboard/DashboardSync'
 import { syncAllArtisanVaults } from '@/app/actions/sync-gelato'
-
-// Mock Data for "Basement Inventory" Preview
-const FEATURED_ARTIFACTS = [
-    {
-        id: '2',
-        title: 'Bespoke Turquoise Pendant',
-        category: 'LaraCraft Originals',
-        price: 890,
-        image_url: '/product-pendant.jpg'
-    },
-    {
-        id: '3',
-        title: 'Artisan Leather Journal',
-        category: 'Print & Paper Studio',
-        price: 120,
-        image_url: '/product-journal.jpg'
-    },
-    {
-        id: '1',
-        title: 'Hand-Hammered Gold Ring',
-        category: 'Bespoke Atelier',
-        price: 1250,
-        image_url: '/product-ring.jpg'
-    }
-]
 
 export default async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
     const supabase = await createClient()
@@ -45,9 +19,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
 
     // 1. Verify User
     const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-        redirect('/login')
-    }
+    if (!user) redirect('/login')
 
     // 2. Fetch Profile
     const { data: profile } = await supabase
@@ -68,7 +40,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
         .from('products')
         .select('*')
         .eq('is_published', true)
-        .limit(3);
+        .limit(3)
 
     return (
         <div className="min-h-screen bg-[#F8F6F1] pb-20">
@@ -98,31 +70,34 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                                 <RefreshCw className="h-4 w-4" />
                             </Button>
                         </form>
-                        <form action={syncAllArtisanVaults}>
-                            <Button className="bg-[#003D4D] text-white hover:bg-[#002b36] font-sans text-[10px] tracking-widest font-bold px-6">
-                                <RefreshCw className="mr-2 h-3 w-3" /> CAPTURE GELATO ASSETS
-                            </Button>
-                        </form>
                     </div>
                 </div>
             </div>
 
-            {/* 🟢 Sync Gate (Admin Only) */}
+            {/* 🟢 Sync Gate (Admin Only) - CONSOLIDATED */}
             {
                 (profile?.role === 'super_admin' || user.email === 'lara.khouri19@gmail.com') && (
                     <div className="w-full px-12 md:px-32 py-8 bg-stone-50 border-b border-stone-200 space-y-4">
                         <div className="flex justify-between items-center">
-                            <h3 className="text-lg font-serif text-stone-800">Admin Controls</h3>
-                            <DashboardSync />
+                            <div>
+                                <h3 className="text-lg font-serif text-stone-800">Admin Controls</h3>
+                                <p className="text-xs font-sans text-stone-500 uppercase tracking-widest mt-1">Master Vault Synchronization</p>
+                            </div>
+
+                            {/* THE ONE TRUE SYNC BUTTON */}
+                            <form action={syncAllArtisanVaults}>
+                                <Button type="submit" className="bg-[#003D4D] text-white hover:bg-[#002b36] font-sans text-[10px] tracking-widest font-bold px-6 py-5 shadow-md transition-all hover:shadow-lg">
+                                    <RefreshCw className="mr-3 h-4 w-4" />
+                                    CAPTURE GELATO ASSETS
+                                </Button>
+                            </form>
                         </div>
-                        <GelatoSync />
                     </div>
                 )
             }
 
             <div className="w-full px-12 md:px-32 py-12 space-y-16">
-
-                {/* 1. Studio Departments (Discovery Cards) */}
+                {/* 1. Studio Departments */}
                 <section>
                     <div className="flex items-center gap-4 mb-8">
                         <h2 className="text-xl font-serif text-stone-800">Studio Departments</h2>
@@ -179,7 +154,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                     </div>
                 </section>
 
-                {/* 2. Featured Artifacts (Basement Inventory) */}
+                {/* 2. Featured Artifacts */}
                 <section>
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-4">
@@ -217,7 +192,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                     </div>
                 </section>
 
-                {/* 3. My Journeys (Existing) */}
+                {/* 3. My Journeys */}
                 <section className="space-y-6">
                     <div className="flex items-center justify-between border-b border-stone-200 pb-4">
                         <h2 className="text-xl font-serif text-stone-700">My Journeys</h2>

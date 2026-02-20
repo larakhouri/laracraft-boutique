@@ -3,7 +3,7 @@ import React from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { Scroll } from 'lucide-react'
 import { Link } from '@/app/navigation'
-import PrintingGuide from '@/components/gallery/PrintingGuide'
+// import PrintingGuide from '@/components/gallery/PrintingGuide' 👈 Removed
 
 import { ProductSkeleton } from '@/components/ui/ProductSkeleton'
 
@@ -14,7 +14,12 @@ export default function PrintedDesignsPage() {
 
     React.useEffect(() => {
         const timer = setTimeout(async () => {
-            const { data } = await supabase.from('printing_guide').select('*').order('updated_at', { ascending: false });
+            const { data } = await supabase
+                .from('printed_designs')
+                .select('*')
+                .eq('collection_type', 'printed_designs')
+                .order('updated_at', { ascending: false });
+
             if (data) setProducts(data);
             setLoading(false);
         }, 1000);
@@ -58,7 +63,7 @@ export default function PrintedDesignsPage() {
                     </div>
                 )}
             </div>
-            <PrintingGuide />
+            {/* 🛑 Floating PrintingGuide removed from here to clean up the UI */}
         </main>
     )
 }

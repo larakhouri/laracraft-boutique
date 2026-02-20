@@ -46,29 +46,24 @@ export async function login(prevState: any, formData: FormData) {
 
     const { data: { user } } = await supabase.auth.getUser()
 
-    // 🎯 REFIX: Send Lara and Admins to the valid Dashboard
-    let target = `/${locale}`
+    let target = `/${locale}` // 👈 Default for Users: The Home Page
 
     if (user) {
-        // Redirect Lara and Admins to the valid Dashboard
-        if (user.email === 'lara.khouri19@gmail.com') {
-            target = `/${locale}/dashboard`
-        } else {
-            const { data: profile } = await supabase
-                .from('profiles')
-                .select('role')
-                .eq('id', user.id)
-                .single()
+        // Fetch profile to check role
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .single()
 
-            if (profile?.role === 'super_admin' || profile?.role === 'staff') {
-                target = `/${locale}/dashboard`
-            }
+        // 🛡️ Admin & Lara Redirect to Dashboard
+        if (user.email === 'lara.khouri19@gmail.com' || profile?.role === 'super_admin' || profile?.role === 'staff') {
+            target = `/${locale}/dashboard`
         }
     }
 
     revalidatePath('/', 'layout')
     redirect(target)
-    // return { error: '', success: true, message: 'Signed in' } // Unreachable due to redirect
 }
 
 export async function signup(prevState: any, formData: FormData) {
@@ -158,4 +153,17 @@ export async function revalidateRole() {
             })
         }
     }
+}
+
+export async function forgotPassword(formData: FormData) {
+    const supabase = await createClient()
+    const email = formData.get('email') as string
+    const locale = await getLocale()
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/auth/reset-password`,
+    })
+
+    if (error) return { error: error.message }
+    return { success: true, message: "A reset link has been sent to your email." }
 }

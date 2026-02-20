@@ -43,6 +43,25 @@
         },
         "cta": "Submit Design Proposal"
     },
+    "Atelier": {
+        "title": "The Atelier",
+        "subtitle": "Bespoke Artifacts & Handcrafted Narratives",
+        "description": "Explore our curated collection of handmade artifacts.",
+        "coming_soon": "New Collection Arriving Soon"
+    },
+    "PrintingGuide": {
+        "heroPrefix": "To print any photo from the gallery,",
+        "heroSuffix": "Discover the Printing Guide",
+        "buttonLabel": "Explore Options",
+        "title": "Bespoke Printing Guide",
+        "description": "Our printing process offers a vast array of artisan formats and premium materials. Each selection is engineered for archival longevity and visual depth.",
+        "close": "Back to Gallery"
+    },
+    "Actions": {
+        "book_appointment": "Book Appointment",
+        "submit_narrative": "Submit Narrative",
+        "buy_now": "Buy Now"
+    },
     "Footer": {
         "bio": "Handmade gifts filled with heart and meaning. Based in Cologne, Germany.",
         "explore": "Explore",
@@ -51,37 +70,5 @@
         "privacy": "Privacy Policy",
         "terms": "Terms & Conditions",
         "refund": "Return Policy"
-    },
-    "Actions": {
-        "book_appointment": "Book Appointment",
-        "submit_narrative": "Submit Narrative",
-        "buy_now": "Buy Now"
-    },
-    "Atelier": {
-        "title": "The Atelier",
-        "subtitle": "Bespoke Artifacts & Handcrafted Narratives",
-        "description": "Explore our curated collection of handmade artifacts.",
-        "coming_soon": "New Collection Arriving Soon"
-    },
-    "PrintingGuide": {
-        "heroPrefix": "Bespoke Formats",
-        "heroSuffix": "Explore Guide",
-        "buttonLabel": "Printing Guide",
-        "title": "Printing Artifact Guide",
-        "close": "Close Guide",
-        "materials": {
-            "acrylic": {
-                "title": "Acrylic Glass",
-                "desc": "Deep gloss, 4mm thickness, high-end \"floating\" look with 3D depth."
-            },
-            "paper": {
-                "title": "Fine Art Paper (Hahnemühle)",
-                "desc": "Museum-quality matte finish, ultra-rich textures, archival longevity."
-            },
-            "aluminum": {
-                "title": "Brushed Aluminum",
-                "desc": "Industrial matte aesthetic, ultra-durable, reflections in metallic areas."
-            }
-        }
     }
 }

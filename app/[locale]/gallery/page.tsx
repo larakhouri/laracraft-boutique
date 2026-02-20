@@ -15,12 +15,17 @@ export default function GalleryPage() {
 
     React.useEffect(() => {
         const timer = setTimeout(async () => {
-            const { data } = await supabase
-                .from('gallery_products') // 👈 Switched to the specific table
-                .select('id, title, description, image_url, price, updated_at')
-                .order('created_at', { ascending: false });
+            // 🟢 ALIGNED SCHEMA: Requesting the exact columns that exist in your new vault
+            const { data, error } = await supabase
+                .from('gallery_products')
+                .select('id, title, description_en, description_de, description_ar, image_url, price, updated_at')
+                .order('updated_at', { ascending: false });
 
-            if (data) setGalleryItems(data);
+            if (error) {
+                console.error("Gallery Fetch Error:", error.message);
+            } else if (data) {
+                setGalleryItems(data);
+            }
             setLoading(false);
         }, 1000);
         return () => clearTimeout(timer);
