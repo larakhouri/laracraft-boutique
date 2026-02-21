@@ -7,6 +7,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { createClient } from '@/utils/supabase/server';
 import React from 'react';
+// 🟢 STEP 1: Import the floating button component
+import FloatingPrintGuide from "@/components/FloatingPrintGuide";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cormorant = Cormorant_Garamond({
@@ -20,10 +22,6 @@ const amiri = Amiri({
   variable: "--font-amiri"
 });
 
-/**
- * 🛡️ PRO MODE METADATA
- * Removed colorScheme from here to fix Next.js 16 terminal warnings.
- */
 export const metadata: Metadata = {
   title: "Lara Craft Gifts | Bespoke Artisan Goods",
   description: "Discover handcrafted treasures and follow the journey of your bespoke commissions.",
@@ -34,16 +32,12 @@ export const metadata: Metadata = {
   }
 };
 
-/**
- * 🛡️ VIEWPORT EXPORT
- * This is the modern requirement for locking "Light Mode" and fixing the brown background.
- */
 export const viewport: Viewport = {
   themeColor: '#fdfcf8',
   colorScheme: 'light',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1, // Prevents layout shifts on mobile
+  maximumScale: 1,
 };
 
 export default async function RootLayout({
@@ -57,11 +51,9 @@ export default async function RootLayout({
   const messages = await getMessages();
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
-  // Font logic based on locale
   const fontVariable = locale === 'ar' ? amiri.variable : `${inter.variable} ${cormorant.variable}`;
   const fontFamily = locale === 'ar' ? 'font-amiri' : 'font-sans';
 
-  // Supabase Auth Integration
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -84,19 +76,19 @@ export default async function RootLayout({
           colorScheme: 'light'
         }}
       >
-        {/* 🛡️ FILM GRAIN: Moved to z-10 so it's behind the Navbar (z-100) */}
         <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-[10] mix-blend-multiply bg-[url('/noise.svg')]"></div>
 
         <NextIntlClientProvider messages={messages}>
-          {/* 🛡️ NAVBAR WRAPPER: Forced onto the top layer */}
           <header className="relative z-[100]">
             <Navbar locale={locale} user={user} profile={profile} />
           </header>
 
-          {/* 🛡️ MAIN CONTENT: Lower z-index than the navbar */}
           <main className="flex-1 relative z-0">
             {children}
           </main>
+
+          {/* 🟢 STEP 2: Restore the Floating Print Guide here */}
+          <FloatingPrintGuide />
 
           <SiteFooter />
         </NextIntlClientProvider>
