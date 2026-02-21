@@ -1,15 +1,19 @@
 import createMiddleware from 'next-intl/middleware';
 
-export default createMiddleware({
-    // Our Six Pillars supported languages
+// 🛡️ Next.js 16 Proxy Implementation
+const handleI18nRouting = createMiddleware({
     locales: ['en', 'de', 'ar'],
     defaultLocale: 'en',
-    // This is the CRITICAL fix: it forces the URL to keep the language prefix
     localePrefix: 'always'
 });
 
+// Export as default proxy function
+export default function proxy(request: any) {
+    return handleI18nRouting(request);
+}
+
 export const config = {
-    // Match all paths except internal Next.js files and API routes
+    // Match all paths except internal Next.js/static files
     matcher: [
         '/',
         '/(de|en|ar)/:path*',

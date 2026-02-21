@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Cormorant_Garamond, Amiri } from "next/font/google";
 import "@/app/globals.css";
 import Navbar from "../../components/Navbar";
@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { createClient } from '@/utils/supabase/server';
+import React from 'react';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cormorant = Cormorant_Garamond({
@@ -19,7 +20,10 @@ const amiri = Amiri({
   variable: "--font-amiri"
 });
 
-// 🛡️ Added colorScheme: 'light' to metadata to signal browsers
+/**
+ * 🛡️ PRO MODE METADATA
+ * Removed colorScheme from here to fix Next.js 16 terminal warnings.
+ */
 export const metadata: Metadata = {
   title: "Lara Craft Gifts | Bespoke Artisan Goods",
   description: "Discover handcrafted treasures and follow the journey of your bespoke commissions.",
@@ -30,12 +34,16 @@ export const metadata: Metadata = {
   }
 };
 
-// 🛡️ This is the new standard that stops the "Ugly Brown" and the terminal warnings
-export const viewport = {
-  themeColor: '#fdfcf8', // Matches your artisan background
+/**
+ * 🛡️ VIEWPORT EXPORT
+ * This is the modern requirement for locking "Light Mode" and fixing the brown background.
+ */
+export const viewport: Viewport = {
+  themeColor: '#fdfcf8',
   colorScheme: 'light',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 1, // Prevents layout shifts on mobile
 };
 
 export default async function RootLayout({
@@ -49,9 +57,11 @@ export default async function RootLayout({
   const messages = await getMessages();
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
+  // Font logic based on locale
   const fontVariable = locale === 'ar' ? amiri.variable : `${inter.variable} ${cormorant.variable}`;
   const fontFamily = locale === 'ar' ? 'font-amiri' : 'font-sans';
 
+  // Supabase Auth Integration
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -67,22 +77,27 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      {/* 🛡️ Explicitly locking the body to stay Light Mode regardless of phone settings */}
       <body
-        className={`${fontVariable} ${fontFamily} antialiased bg-background text-foreground relative min-h-screen flex flex-col`}
+        className={`${fontVariable} ${fontFamily} antialiased bg-[#fdfcf8] text-foreground relative min-h-screen flex flex-col`}
         style={{
           forcedColorAdjust: 'none',
           colorScheme: 'light'
         }}
       >
-        {/* Film Grain */}
-        <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-[9999] mix-blend-multiply bg-[url('/noise.svg')]"></div>
+        {/* 🛡️ FILM GRAIN: Moved to z-10 so it's behind the Navbar (z-100) */}
+        <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-[10] mix-blend-multiply bg-[url('/noise.svg')]"></div>
 
         <NextIntlClientProvider messages={messages}>
-          <Navbar locale={locale} user={user} profile={profile} />
-          <main className="flex-1">
+          {/* 🛡️ NAVBAR WRAPPER: Forced onto the top layer */}
+          <header className="relative z-[100]">
+            <Navbar locale={locale} user={user} profile={profile} />
+          </header>
+
+          {/* 🛡️ MAIN CONTENT: Lower z-index than the navbar */}
+          <main className="flex-1 relative z-0">
             {children}
           </main>
+
           <SiteFooter />
         </NextIntlClientProvider>
       </body>
