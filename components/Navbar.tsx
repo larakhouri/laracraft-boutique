@@ -26,15 +26,22 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
 
     return (
         <>
-            {/* 🟢 ADJUSTED HEIGHT: h-20 on mobile, 25vh on desktop */}
-            <nav dir="ltr" className="h-24 md:h-[25vh] md:min-h-[180px] w-full bg-[#fdfcf8]/90 backdrop-blur-md border-b border-stone-100 sticky top-0 z-[100] px-4 md:px-12 lg:px-24 py-4 md:py-8 font-sans transition-all duration-300">
+            {/* 🟢 FITTED NAVBAR: Reduced height on mobile (h-24), Backdrop Blur, and Dark Mode Protection */}
+            <nav
+                dir="ltr"
+                className="h-24 md:h-[25vh] md:min-h-[180px] w-full bg-[#fdfcf8] border-b border-stone-100 sticky top-0 z-[100] px-4 md:px-12 lg:px-24 py-4 md:py-8 font-sans transition-all duration-300"
+                style={{
+                    forcedColorAdjust: 'none', // 🛡️ Anti-Brown Protection
+                    colorScheme: 'light'       // 🛡️ Anti-Inversion Protection
+                }}
+            >
                 <div className="max-w-[1800px] mx-auto h-full flex flex-col justify-between items-center">
 
-                    {/* 🟢 TOP ROW */}
+                    {/* 🟢 TOP ROW: Balanced for Mobile */}
                     <div className="w-full flex justify-between items-center relative h-full md:h-auto">
 
-                        {/* Mobile Menu Toggle */}
-                        <div className="md:hidden flex-1">
+                        {/* Mobile Menu Toggle (Left) */}
+                        <div className="md:hidden flex-1 flex justify-start">
                             <button
                                 onClick={() => setIsMobileMenuOpen(true)}
                                 className="p-2 text-[#004d4d] hover:bg-stone-100 rounded-full transition-colors"
@@ -43,7 +50,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                             </button>
                         </div>
 
-                        {/* Logo - Centered on Mobile, Scaled Down */}
+                        {/* Logo - Perfectly Centered on Mobile, Scaled Down */}
                         <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none md:flex-1 md:flex md:justify-center">
                             <Link href="/" className="block transition-transform duration-500 hover:scale-105">
                                 <Image
@@ -52,12 +59,13 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                                     width={360}
                                     height={120}
                                     priority
-                                    className="h-12 md:h-28 w-auto object-contain" // 👈 Fitted height for mobile
+                                    className="h-12 md:h-28 w-auto object-contain"
+                                    style={{ filter: 'none' }} // Prevents browser from auto-inverting logo colors
                                 />
                             </Link>
                         </div>
 
-                        {/* Actions (Language & User) */}
+                        {/* Actions (Right) */}
                         <div className="flex flex-1 justify-end items-center gap-2 md:gap-8">
                             <div className="hidden md:block">
                                 <LanguageSwitcher />
@@ -66,7 +74,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                         </div>
                     </div>
 
-                    {/* 🟢 BOTTOM ROW (Desktop Only) */}
+                    {/* 🟢 BOTTOM ROW: Desktop Navigation Only */}
                     <div className="hidden md:flex justify-center items-center gap-8 lg:gap-12 w-full pt-4">
                         {SIX_PILLARS.map((link) => {
                             const isActive = pathname === link.href;
@@ -88,7 +96,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                 </div>
             </nav>
 
-            {/* 🟢 FULL SCREEN OVERLAY (Remains the same as your premium version) */}
+            {/* 🟢 MOBILE MENU OVERLAY */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
@@ -97,6 +105,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                         exit={{ opacity: 0, x: -100 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         className="fixed inset-0 z-[200] bg-[#fdfcf8] flex flex-col p-8"
+                        style={{ forcedColorAdjust: 'none', colorScheme: 'light' }}
                     >
                         <div className="flex justify-between items-center mb-16">
                             <span className="font-serif italic text-xl text-[#004d4d]">Menu</span>
@@ -127,7 +136,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                             ))}
                         </div>
 
-                        {/* Bottom Mobile Actions */}
+                        {/* Mobile Actions: Profile & Language */}
                         <div className="mt-auto pt-8 border-t border-stone-100 flex justify-between items-center">
                             <div className="flex gap-4">
                                 {['en', 'de', 'ar'].map((lang) => (
