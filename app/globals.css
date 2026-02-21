@@ -133,13 +133,30 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
 
+  html,
   body {
-    @apply bg-background text-foreground;
+    /* This is the magic property for modern mobile browsers */
+    color-scheme: light !important;
+    forced-color-adjust: none !important;
+    -webkit-text-size-adjust: 100%;
   }
+}
+
+/* 🟢 Target the Navbar specifically to stop the brown */
+nav {
+  background-color: #fdfcf8 !important;
+  /* Force your parchment */
+  forced-color-adjust: none !important;
+}
+
+/* 🟢 Fix the Logo Square */
+/* If your logo has a white background in the image, we force it to blend */
+img[alt="LaraCraft"] {
+  mix-blend-mode: multiply;
+  /* Makes the white background of the PNG/JPG transparent */
+  filter: brightness(1) contrast(1) !important;
+  /* Prevents "dark mode" filters */
 }
 
 :root {
