@@ -1,38 +1,45 @@
-'use client'
-import { useState } from 'react'
+import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
+import ProfileClientView from '../../../components/account/ProfileClientView'
 
-import ProfileEditForm from '@/components/account/ProfileEditForm'
-const OrderHistory = ({ orders }: any) => <div className="p-8 border border-stone-100 bg-white">Order History (Coming Soon)</div>
-const WishlistGrid = ({ items }: any) => <div className="p-8 border border-stone-100 bg-white">Wishlist (Coming Soon)</div>
+export default async function ProfilePage() {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
 
-export default function ProfilePage({ profile, orders, wishlist }: any) {
-    const [activeTab, setActiveTab] = useState('account')
+    if (!user) redirect('/login')
+
+    // 🎯 SAFE FETCH: Fallback if profile is missing
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single()
+
+    const safeProfile = profile || { id: user.id, full_name: user.email }
+
+    // Fetch Orders
+    const { data: orders } = await supabase
+        .from('orders')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+
+    // Fetch Wishlist (Cross-referencing items)
+    const { data: wishlist } = await supabase
+        .from('gallery_products')
+        .select('*')
+        .in('id', safeProfile.wishlist_ids || [])
 
     return (
-        <div className="max-w-6xl mx-auto py-24 px-6 font-sans">
-            {/* 🟢 TABS: Account | Orders | Wishlist */}
-            <div className="flex gap-12 border-b border-stone-100 mb-12">
-                {['account', 'orders', 'wishlist'].map((tab) => (
-                    <button
-                        key={tab}
-                        onClick={() => setActiveTab(tab)}
-                        className={`pb-4 text-[10px] uppercase tracking-[0.2em] font-bold transition-all
-                        ${activeTab === tab ? 'border-b-2 border-[#004d4d] text-[#004d4d]' : 'text-stone-400'}`}
-                    >
-                        {tab}
-                    </button>
-                ))}
+        <main className="min-h-screen bg-[#fdfcf8] pt-32 pb-24">
+            <div className="max-w-7xl mx-auto px-6">
+                <h1 className="font-serif text-4xl italic text-[#004d4d] mb-12">Your Sanctum</h1>
+                <ProfileClientView
+                    profile={safeProfile}
+                    orders={orders || []}
+                    wishlist={wishlist || []}
+                />
             </div>
-
-            {activeTab === 'account' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {/* User can edit Email, Password, and Address here */}
-                    <ProfileEditForm profile={profile} />
-                </div>
-            )}
-
-            {activeTab === 'orders' && <OrderHistory orders={orders} />}
-            {activeTab === 'wishlist' && <WishlistGrid items={wishlist} />}
-        </div>
+        </main>
     )
 }

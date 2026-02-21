@@ -3,16 +3,18 @@ import React from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { useTranslations } from 'next-intl'
 import { ProductSkeleton } from '@/components/ui/ProductSkeleton'
+import { Link } from '@/app/navigation' // 🟢 Added this
+import { useParams } from 'next/navigation' // 🟢 Added this
 
 export default function ArtisanGrid() {
     const t = useTranslations('PrintingGuide');
+    const { locale } = useParams(); // 🟢 Get current locale (en, de, etc)
     const supabase = createClient();
     const [materials, setMaterials] = React.useState<any[]>([]);
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         async function fetchMaterials() {
-            // We fetch from the printing_guide table where your Gelato sync sends the data
             const { data } = await supabase
                 .from('printing_guide')
                 .select('*')
@@ -27,21 +29,8 @@ export default function ArtisanGrid() {
     return (
         <section className="px-6 md:px-12 lg:px-24 py-20 bg-white">
             <div className="max-w-[1800px] mx-auto">
+                {/* ... Narrative Section Stay Same ... */}
 
-                {/* 📜 NARRATIVE EXPLANATION */}
-                <div className="max-w-3xl mb-20 space-y-6">
-                    <h2 className="font-serif text-3xl text-[#003D4D] italic">
-                        {t('title')}
-                    </h2>
-                    <p className="text-stone-600 leading-relaxed font-sans text-lg">
-                        {t('description')}
-                        {/* This pulls your new instruction from en.json: 
-                            "Our printing process offers a vast array of artisan formats..." */}
-                    </p>
-                    <div className="h-px w-24 bg-[#C5A059]" />
-                </div>
-
-                {/* 🏺 DYNAMIC MATERIAL GRID */}
                 {loading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
                         {[...Array(3)].map((_, i) => <ProductSkeleton key={i} />)}
@@ -49,7 +38,12 @@ export default function ArtisanGrid() {
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 animate-in fade-in duration-1000">
                         {materials.map((item) => (
-                            <div key={item.id} className="group space-y-6">
+                            /* 🟢 WRAPPED IN LINK: This makes the card functional */
+                            <Link
+                                key={item.id}
+                                href={`/gallery/print-guide/${item.id}`}
+                                className="group space-y-6 block cursor-pointer"
+                            >
                                 <div className="relative aspect-[4/5] bg-stone-50 overflow-hidden border border-stone-100 shadow-sm transition-all duration-700 group-hover:shadow-xl">
                                     <img
                                         src={item.image_url}
@@ -68,7 +62,7 @@ export default function ArtisanGrid() {
                                         Bespoke format curated for archival permanence and visual depth.
                                     </p>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 )}

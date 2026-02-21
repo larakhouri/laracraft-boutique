@@ -19,11 +19,13 @@ const amiri = Amiri({
   variable: "--font-amiri"
 });
 
+// 🛡️ Added colorScheme: 'light' to metadata to signal browsers
 export const metadata: Metadata = {
   title: "Lara Craft Gifts | Bespoke Artisan Goods",
   description: "Discover handcrafted treasures and follow the journey of your bespoke commissions.",
+  colorScheme: 'light',
   icons: {
-    icon: '/logo.png', // 👈 Points to your official brand asset
+    icon: '/logo.png',
     shortcut: '/logo.png',
     apple: '/logo.png',
   }
@@ -58,7 +60,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <body className={`${fontVariable} ${fontFamily} antialiased bg-background text-foreground relative min-h-screen flex flex-col`}>
+      {/* 🛡️ Explicitly locking the body to stay Light Mode regardless of phone settings */}
+      <body
+        className={`${fontVariable} ${fontFamily} antialiased bg-background text-foreground relative min-h-screen flex flex-col`}
+        style={{
+          forcedColorAdjust: 'none',
+          colorScheme: 'light'
+        }}
+      >
         {/* Film Grain */}
         <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-[9999] mix-blend-multiply bg-[url('/noise.svg')]"></div>
 

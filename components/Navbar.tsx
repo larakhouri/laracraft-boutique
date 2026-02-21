@@ -16,7 +16,6 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
     const pathname = usePathname()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-    // Helper to get localized name
     const getLocalizedName = (pillar: any) => {
         return pillar.name[locale as keyof typeof pillar.name] || pillar.name.en
     }
@@ -27,13 +26,15 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
 
     return (
         <>
-            <nav dir="ltr" className="h-[25vh] min-h-[180px] w-full bg-[#fdfcf8] border-b border-stone-100 sticky top-0 z-[100] px-6 md:px-12 lg:px-24 py-8 font-sans">
+            {/* 🟢 ADJUSTED HEIGHT: h-20 on mobile, 25vh on desktop */}
+            <nav dir="ltr" className="h-24 md:h-[25vh] md:min-h-[180px] w-full bg-[#fdfcf8]/90 backdrop-blur-md border-b border-stone-100 sticky top-0 z-[100] px-4 md:px-12 lg:px-24 py-4 md:py-8 font-sans transition-all duration-300">
                 <div className="max-w-[1800px] mx-auto h-full flex flex-col justify-between items-center">
 
-                    {/* 🟢 TOP ROW: Brand & Language Toggle & Mobile Toggle */}
-                    <div className="w-full flex justify-between items-center relative">
-                        {/* Mobile Menu Toggle (Left on Mobile) */}
-                        <div className="md:hidden">
+                    {/* 🟢 TOP ROW */}
+                    <div className="w-full flex justify-between items-center relative h-full md:h-auto">
+
+                        {/* Mobile Menu Toggle */}
+                        <div className="md:hidden flex-1">
                             <button
                                 onClick={() => setIsMobileMenuOpen(true)}
                                 className="p-2 text-[#004d4d] hover:bg-stone-100 rounded-full transition-colors"
@@ -42,7 +43,8 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                             </button>
                         </div>
 
-                        <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none md:left-auto">
+                        {/* Logo - Centered on Mobile, Scaled Down */}
+                        <div className="absolute left-1/2 transform -translate-x-1/2 md:static md:transform-none md:flex-1 md:flex md:justify-center">
                             <Link href="/" className="block transition-transform duration-500 hover:scale-105">
                                 <Image
                                     src="/logo.png"
@@ -50,13 +52,13 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                                     width={360}
                                     height={120}
                                     priority
-                                    className="h-20 md:h-28 w-auto object-contain"
+                                    className="h-12 md:h-28 w-auto object-contain" // 👈 Fitted height for mobile
                                 />
                             </Link>
                         </div>
 
-                        <div className="flex items-center gap-4 md:gap-8">
-                            {/* 🌍 Trilingual Toggle (Hidden on small mobile, visible on md+) */}
+                        {/* Actions (Language & User) */}
+                        <div className="flex flex-1 justify-end items-center gap-2 md:gap-8">
                             <div className="hidden md:block">
                                 <LanguageSwitcher />
                             </div>
@@ -64,8 +66,8 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                         </div>
                     </div>
 
-                    {/* 🟢 BOTTOM ROW: The 6 Pillars (Desktop Only) */}
-                    <div className="hidden md:flex justify-center items-center gap-8 lg:gap-12 w-full">
+                    {/* 🟢 BOTTOM ROW (Desktop Only) */}
+                    <div className="hidden md:flex justify-center items-center gap-8 lg:gap-12 w-full pt-4">
                         {SIX_PILLARS.map((link) => {
                             const isActive = pathname === link.href;
                             return (
@@ -86,44 +88,48 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                 </div>
             </nav>
 
-            {/* 🟢 PREMIUM MOBILE MENU OVERLAY (Glass Effect) */}
+            {/* 🟢 FULL SCREEN OVERLAY (Remains the same as your premium version) */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-                        animate={{ opacity: 1, backdropFilter: "blur(16px)" }}
-                        exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-                        transition={{ duration: 0.4 }}
-                        className="fixed inset-0 z-[200] bg-stone-50/80 flex flex-col items-center justify-center p-6"
+                        initial={{ opacity: 0, x: -100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="fixed inset-0 z-[200] bg-[#fdfcf8] flex flex-col p-8"
                     >
-                        <button
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="absolute top-8 right-8 p-2 text-[#004d4d] hover:bg-black/5 rounded-full transition-colors"
-                        >
-                            <X className="w-8 h-8" />
-                        </button>
+                        <div className="flex justify-between items-center mb-16">
+                            <span className="font-serif italic text-xl text-[#004d4d]">Menu</span>
+                            <button
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="p-2 text-[#004d4d] hover:bg-stone-100 rounded-full transition-colors"
+                            >
+                                <X className="w-8 h-8" />
+                            </button>
+                        </div>
 
-                        <div className="flex flex-col items-center space-y-8 text-center">
-                            <h2 className="font-serif text-3xl italic text-[#004d4d] mb-4">Menu</h2>
+                        <div className="flex flex-col space-y-6">
                             {SIX_PILLARS.map((link, idx) => (
                                 <motion.div
                                     key={link.key}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: idx * 0.1, duration: 0.5 }}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.05 }}
                                 >
                                     <Link
                                         href={link.href}
                                         onClick={() => setIsMobileMenuOpen(false)}
-                                        className="font-serif text-2xl md:text-4xl text-[#004d4d] hover:opacity-70 transition-opacity block py-2"
+                                        className="font-serif text-4xl italic text-[#004d4d] hover:text-[#2A8B8B] transition-colors"
                                     >
                                         {getLocalizedName(link)}
                                     </Link>
                                 </motion.div>
                             ))}
+                        </div>
 
-                            {/* Mobile Language Switcher */}
-                            <div className="flex gap-6 mt-12 pt-8 border-t border-[#004d4d]/20 w-32 justify-center">
+                        {/* Bottom Mobile Actions */}
+                        <div className="mt-auto pt-8 border-t border-stone-100 flex justify-between items-center">
+                            <div className="flex gap-4">
                                 {['en', 'de', 'ar'].map((lang) => (
                                     <button
                                         key={lang}
@@ -131,7 +137,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                                             switchLocale(lang)
                                             setIsMobileMenuOpen(false)
                                         }}
-                                        className={`text-sm uppercase tracking-widest ${locale === lang ? 'font-bold text-[#004d4d]' : 'text-stone-500'}`}
+                                        className={`text-xs uppercase tracking-widest ${locale === lang ? 'font-bold text-[#004d4d]' : 'text-stone-400'}`}
                                     >
                                         {lang}
                                     </button>

@@ -9,16 +9,15 @@ export async function updateGlobalPreferences(formData: FormData) {
 
     const cookieStore = await cookies()
 
-    // Store for 1 year
+    // Store preferences for 1 year
     if (currency) {
-        cookieStore.set('artisan_currency', currency, { maxAge: 60 * 60 * 24 * 365, path: '/' })
+        cookieStore.set('artisan_currency', currency, { maxAge: 31536000, path: '/' })
     }
     if (country) {
-        cookieStore.set('artisan_country', country, { maxAge: 60 * 60 * 24 * 365, path: '/' })
+        cookieStore.set('artisan_country', country, { maxAge: 31536000, path: '/' })
     }
 
-    // Refresh the entire layout to apply the new currency/country instantly
+    // Refresh the site to apply new settings
     revalidatePath('/', 'layout')
-
     return { success: true }
 }

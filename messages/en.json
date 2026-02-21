@@ -35,6 +35,7 @@
     },
     "Bespoke": {
         "title": "Bespoke Commissions",
+        "subtitle": "Tailored Visual Narratives & Custom Curation",
         "description": "Collaborate with LaraCraft to create a custom artifact.",
         "steps": {
             "one": "Define your narrative vision.",

@@ -141,3 +141,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+:root {
+  --background: #F8F6F1;
+  /* This is the parchment color */
+  --foreground: #003D4D;
+  /* This is the deep teal text */
+}
