@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import { Link, usePathname, useRouter } from '@/i18n/routing'
@@ -8,7 +8,6 @@ import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import LanguageSwitcher from '@/components/navigation/LanguageSwitcher'
 
-// 🟢 RESTORED: Full elegant names instead of the shortened versions
 const SIX_PILLARS = [
     {
         key: 'atelier',
@@ -48,6 +47,9 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
     const pathname = usePathname()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+    // 🟢 1. Create a reference to the scrollable ribbon
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
     const getLocalizedName = (pillar: any) => {
         return pillar.name[locale as keyof typeof pillar.name] || pillar.name.en
     }
@@ -56,13 +58,36 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
         router.replace(pathname, { locale: newLocale });
     }
 
+    // 🟢 2. The Auto-Center Mathematics
+    useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        // Find the button that is currently active
+        const activeElement = container.querySelector('[data-active="true"]') as HTMLElement;
+
+        if (activeElement) {
+            // Calculate where to scroll to put the active item exactly in the middle
+            const scrollPosition =
+                activeElement.offsetLeft -
+                (container.offsetWidth / 2) +
+                (activeElement.offsetWidth / 2);
+
+            // Execute the smooth scroll
+            container.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        }
+    }, [pathname]); // This triggers every time the page changes
+
     return (
         <>
             <header
                 className="w-full bg-[#fdfcf8] border-b border-stone-200 fixed top-0 left-0 right-0 z-[1000] transition-all"
                 style={{ forcedColorAdjust: 'none', colorScheme: 'light' }}
             >
-                {/* 1. TOP ROW: Logo, Hamburger, Profile */}
+                {/* TOP ROW: Logo, Hamburger, Profile */}
                 <div className="max-w-[1800px] mx-auto w-full px-4 md:px-12 flex items-center justify-between h-20 md:h-24">
                     <div className="flex md:hidden flex-1">
                         <button
@@ -95,15 +120,18 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                     </div>
                 </div>
 
-                {/* 2. MOBILE CATEGORY RIBBON: Swipeable, Multi-Line Row */}
-                <div className="md:hidden w-full overflow-x-auto border-t border-stone-100 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                {/* 🟢 MOBILE CATEGORY RIBBON (Attached the ref and data-active attributes here) */}
+                <div
+                    ref={scrollContainerRef}
+                    className="md:hidden w-full overflow-x-auto relative border-t border-stone-100 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                >
                     <div className="flex items-center px-4 py-2 gap-3 w-max">
                         {SIX_PILLARS.map((link) => (
                             <Link
                                 key={link.key}
                                 href={link.href}
-                                // 🟢 THE FIX: whitespace-normal, min-width, and flex centering added
-                                className={`flex items-center justify-center text-[9px] uppercase tracking-[0.1em] font-medium text-center whitespace-normal min-w-[80px] max-w-[95px] h-10 leading-[1.2] transition-colors ${pathname === link.href
+                                data-active={pathname === link.href} // This tag tells the useEffect which one to center
+                                className={`flex items-center justify-center text-[9px] uppercase tracking-[0.1em] font-medium text-center whitespace-normal min-w-[80px] max-w-[95px] h-10 leading-[1.2] transition-colors duration-300 ${pathname === link.href
                                         ? 'text-[#004d4d] border-b-[1.5px] border-[#004d4d]'
                                         : 'text-stone-400 border-b-[1.5px] border-transparent'
                                     }`}
@@ -114,7 +142,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                     </div>
                 </div>
 
-                {/* 3. DESKTOP PILLARS ROW (Hidden on Mobile) */}
+                {/* DESKTOP PILLARS ROW */}
                 <div className="hidden md:flex w-full justify-center gap-10 py-5 border-t border-stone-100">
                     {SIX_PILLARS.map((link) => (
                         <Link
