@@ -23,12 +23,19 @@ const amiri = Amiri({
 export const metadata: Metadata = {
   title: "Lara Craft Gifts | Bespoke Artisan Goods",
   description: "Discover handcrafted treasures and follow the journey of your bespoke commissions.",
-  colorScheme: 'light',
   icons: {
     icon: '/logo.png',
     shortcut: '/logo.png',
     apple: '/logo.png',
   }
+};
+
+// 🛡️ This is the new standard that stops the "Ugly Brown" and the terminal warnings
+export const viewport = {
+  themeColor: '#fdfcf8', // Matches your artisan background
+  colorScheme: 'light',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default async function RootLayout({
