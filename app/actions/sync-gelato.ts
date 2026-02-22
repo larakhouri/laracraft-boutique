@@ -29,10 +29,18 @@ async function captureToVault(gelatoUrl: string, productId: string) {
 }
 
 /**
- * 🎯 TARGETED SYNC: Accepts a target vault to sync only what is requested.
+ * 🎯 TARGETED SYNC: Updated to handle both direct strings and Form Action data.
  */
-export async function syncAllArtisanVaults(target: string = 'all') {
+export async function syncAllArtisanVaults(targetInput?: string | FormData) {
     const supabase = await createClient()
+
+    // 🟢 Handle parameter type mismatch for Next.js 16 build safety
+    let target = 'all';
+    if (typeof targetInput === 'string') {
+        target = targetInput;
+    } else if (targetInput instanceof FormData) {
+        target = (targetInput.get('target') as string) || 'all';
+    }
 
     // 1. Define all possible vaults
     const allVaults = [

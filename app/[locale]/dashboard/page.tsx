@@ -1,4 +1,3 @@
-// app/[locale]/dashboard/page.tsx
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
@@ -74,7 +73,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                 </div>
             </div>
 
-            {/* 🟢 Sync Gate (Admin Only) - CONSOLIDATED */}
+            {/* 🟢 Sync Gate (Admin Only) */}
             {
                 (profile?.role === 'super_admin' || user.email === 'lara.khouri19@gmail.com') && (
                     <div className="w-full px-12 md:px-32 py-8 bg-stone-50 border-b border-stone-200 space-y-4">
@@ -84,8 +83,8 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                                 <p className="text-xs font-sans text-stone-500 uppercase tracking-widest mt-1">Master Vault Synchronization</p>
                             </div>
 
-                            {/* THE ONE TRUE SYNC BUTTON */}
-                            <form action={syncAllArtisanVaults}>
+                            {/* 🟢 FIXED: Wrapped in arrow function to solve Vercel Type Error */}
+                            <form action={async () => { 'use server'; await syncAllArtisanVaults('all'); }}>
                                 <Button type="submit" className="bg-[#003D4D] text-white hover:bg-[#002b36] font-sans text-[10px] tracking-widest font-bold px-6 py-5 shadow-md transition-all hover:shadow-lg">
                                     <RefreshCw className="mr-3 h-4 w-4" />
                                     CAPTURE GELATO ASSETS
@@ -97,56 +96,38 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
             }
 
             <div className="w-full px-12 md:px-32 py-12 space-y-16">
-                {/* 1. Studio Departments */}
                 <section>
                     <div className="flex items-center gap-4 mb-8">
                         <h2 className="text-xl font-serif text-stone-800">Studio Departments</h2>
                         <div className="h-px bg-stone-200 flex-grow" />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Gallery Card */}
                         <div className="group relative overflow-hidden bg-white border border-stone-200/60 p-8 transition-all duration-500 hover:shadow-lg hover:border-[#2A8B8B]/30">
                             <div className="mb-4 text-[#2A8B8B]">
                                 <ImageIcon className="w-8 h-8" />
                             </div>
-                            <h3 className="font-serif text-2xl mb-3 tracking-wide text-stone-800">
-                                {tNav('gallery')}
-                            </h3>
-                            <p className="font-sans text-stone-500 text-sm leading-relaxed mb-6 tracking-wide max-w-sm">
-                                {tDiscovery('gallery_desc')}
-                            </p>
+                            <h3 className="font-serif text-2xl mb-3 tracking-wide text-stone-800">{tNav('gallery')}</h3>
+                            <p className="font-sans text-stone-500 text-sm leading-relaxed mb-6 tracking-wide max-w-sm">{tDiscovery('gallery_desc')}</p>
                             <Link href={`/${locale}/gallery`} className="text-xs font-bold tracking-[0.2em] uppercase text-[#2A8B8B] hover:text-stone-800 transition-colors">
                                 {tDiscovery('explore_btn')} &rarr;
                             </Link>
                         </div>
-
-                        {/* Supplies Card */}
                         <div className="group relative overflow-hidden bg-white border border-stone-200/60 p-8 transition-all duration-500 hover:shadow-lg hover:border-[#2A8B8B]/30">
                             <div className="mb-4 text-[#2A8B8B]">
                                 <Briefcase className="w-8 h-8" />
                             </div>
-                            <h3 className="font-serif text-2xl mb-3 tracking-wide text-stone-800">
-                                {tNav('supplies')}
-                            </h3>
-                            <p className="font-sans text-stone-500 text-sm leading-relaxed mb-6 tracking-wide max-w-sm">
-                                {tDiscovery('supplies_desc')}
-                            </p>
+                            <h3 className="font-serif text-2xl mb-3 tracking-wide text-stone-800">{tNav('supplies')}</h3>
+                            <p className="font-sans text-stone-500 text-sm leading-relaxed mb-6 tracking-wide max-w-sm">{tDiscovery('supplies_desc')}</p>
                             <Link href={`/${locale}/supplies`} className="text-xs font-bold tracking-[0.2em] uppercase text-[#2A8B8B] hover:text-stone-800 transition-colors">
                                 {tDiscovery('explore_btn')} &rarr;
                             </Link>
                         </div>
-
-                        {/* Printed Designs Card */}
                         <div className="group relative overflow-hidden bg-white border border-stone-200/60 p-8 transition-all duration-500 hover:shadow-lg hover:border-[#2A8B8B]/30">
                             <div className="mb-4 text-[#2A8B8B]">
                                 <Scroll className="w-8 h-8" />
                             </div>
-                            <h3 className="font-serif text-2xl mb-3 tracking-wide text-stone-800">
-                                {tNav('printed')}
-                            </h3>
-                            <p className="font-sans text-stone-500 text-sm leading-relaxed mb-6 tracking-wide max-w-sm">
-                                {tDiscovery('pod_desc')}
-                            </p>
+                            <h3 className="font-serif text-2xl mb-3 tracking-wide text-stone-800">{tNav('printed')}</h3>
+                            <p className="font-sans text-stone-500 text-sm leading-relaxed mb-6 tracking-wide max-w-sm">{tDiscovery('pod_desc')}</p>
                             <Link href={`/${locale}/printed-designs`} className="text-xs font-bold tracking-[0.2em] uppercase text-[#2A8B8B] hover:text-stone-800 transition-colors">
                                 {tDiscovery('explore_btn')} &rarr;
                             </Link>
@@ -154,7 +135,6 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                     </div>
                 </section>
 
-                {/* 2. Featured Artifacts */}
                 <section>
                     <div className="flex items-center justify-between mb-8">
                         <div className="flex items-center gap-4">
@@ -170,16 +150,9 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                             <Link key={product.id} href={`/${locale}/shop`} className="group block bg-white border border-stone-100 shadow-sm hover:shadow-md transition-all">
                                 <div className="aspect-square relative bg-stone-100 overflow-hidden">
                                     {product.image_url ? (
-                                        <Image
-                                            src={product.image_url}
-                                            alt={product.title}
-                                            fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                        />
+                                        <Image src={product.image_url} alt={product.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                                     ) : (
-                                        <div className="absolute inset-0 flex items-center justify-center text-stone-300 font-serif italic bg-stone-50">
-                                            No Image
-                                        </div>
+                                        <div className="absolute inset-0 flex items-center justify-center text-stone-300 font-serif italic bg-stone-50">No Image</div>
                                     )}
                                 </div>
                                 <div className="p-4">
@@ -192,7 +165,6 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                     </div>
                 </section>
 
-                {/* 3. My Journeys */}
                 <section className="space-y-6">
                     <div className="flex items-center justify-between border-b border-stone-200 pb-4">
                         <h2 className="text-xl font-serif text-stone-700">My Journeys</h2>
@@ -207,14 +179,10 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                                         <div className="h-2 bg-[#2A8B8B] w-full" />
                                         <CardHeader>
                                             <div className="flex justify-between items-start mb-2">
-                                                <Badge variant="outline" className="border-stone-200 text-stone-500 font-normal">
-                                                    {project.status}
-                                                </Badge>
+                                                <Badge variant="outline" className="border-stone-200 text-stone-500 font-normal">{project.status}</Badge>
                                                 <ArrowRight className="w-4 h-4 text-stone-300 group-hover:text-[#2A8B8B] transition-colors" />
                                             </div>
-                                            <CardTitle className="font-serif text-xl group-hover:text-[#2A8B8B] transition-colors">
-                                                {project.title}
-                                            </CardTitle>
+                                            <CardTitle className="font-serif text-xl group-hover:text-[#2A8B8B] transition-colors">{project.title}</CardTitle>
                                             <CardDescription className="line-clamp-2 text-xs uppercase tracking-wide">
                                                 Commissioned {new Date(project.created_at).toLocaleDateString()}
                                             </CardDescription>
@@ -236,9 +204,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                                 <Package className="w-6 h-6" />
                             </div>
                             <h3 className="font-serif text-lg text-stone-600">No active journeys found</h3>
-                            <p className="text-stone-400 text-sm max-w-md mx-auto">
-                                You haven't commissioned any bespoke pieces yet. Visit our boutique to start your journey.
-                            </p>
+                            <p className="text-stone-400 text-sm max-w-md mx-auto">You haven't commissioned any bespoke pieces yet.</p>
                             <Button asChild className="mt-4 bg-[#2A8B8B] hover:bg-[#237070] text-white">
                                 <Link href="/?category=Bespoke">Explore Bespoke</Link>
                             </Button>
