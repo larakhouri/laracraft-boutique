@@ -150,13 +150,17 @@ nav {
   forced-color-adjust: none !important;
 }
 
-/* 🟢 Fix the Logo Square */
-/* If your logo has a white background in the image, we force it to blend */
-img[alt="LaraCraft"] {
+/* Laracraft Logo Alignment Fix */
+.logo-img,
+img[src*="logo"] {
   mix-blend-mode: multiply;
-  /* Makes the white background of the PNG/JPG transparent */
-  filter: brightness(1) contrast(1) !important;
-  /* Prevents "dark mode" filters */
+  filter: contrast(1.1);
+  background-color: transparent !important;
+}
+
+/* Ensure the global background matches your target exactly */
+body {
+  background-color: #f8f8f2 !important;
 }
 
 :root {
