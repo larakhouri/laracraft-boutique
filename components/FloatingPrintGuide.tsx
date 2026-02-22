@@ -5,9 +5,16 @@ import { ArrowRight } from 'lucide-react'
 export default function FloatingPrintGuide() {
     const pathname = usePathname();
 
-    // 🟢 HIDE LIST: Add any page here where you DON'T want the button to show
-    const hideOnPages = ['/printed-designs', '/the-atelier', '/bespoke'];
+    // 🟢 UPDATED HIDE LIST: Disappearing on all pages except Gallery and Shop/Product views
+    const hideOnPages = [
+        '/printed-designs',
+        '/the-atelier',
+        '/bespoke',
+        '/makers-supplies',
+        '/FinalGift'
+    ];
 
+    // Check if current path is in the hide list
     if (hideOnPages.includes(pathname)) return null;
 
     return (
