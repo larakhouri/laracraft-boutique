@@ -22,10 +22,10 @@ export default async function HomePage() {
 
     return (
         <main className="min-h-screen bg-[#F8F6F1]">
-            {/* 🟢 THE MASTER WRAPPER: Applying 1/8 (12.5%) padding to both sides */}
-            <div className="px-[12.5vw] transition-all duration-500">
+            {/* 🟢 MASTER WRAPPER: Fixed 1/8 (12.5%) padding on each side */}
+            <div className="px-[12.5vw]">
 
-                {/* --- SECTION 1: HERO (Branding: LaraCraft) --- */}
+                {/* --- SECTION 1: HERO (LaraCraft Branding) --- */}
                 <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-[#0A0A0A] mt-12">
                     <div className="absolute inset-0 z-0">
                         <video autoPlay muted loop playsInline className="w-full h-full object-cover opacity-60">
@@ -51,7 +51,6 @@ export default async function HomePage() {
                         <p className="text-lg leading-relaxed text-stone-600 italic">
                             I am a maker driven by a simple truth: I have more ideas than the day has hours.
                         </p>
-                        <div className="h-px w-24 bg-stone-300 mx-auto" />
                     </div>
                 </section>
 
@@ -72,7 +71,7 @@ export default async function HomePage() {
                     </Link>
                 </section>
 
-                {/* --- SECTION 4: CUSTOM LAB (Fitted and Centralized) --- */}
+                {/* --- SECTION 4: CUSTOM LAB --- */}
                 <section className="py-12">
                     <div className="relative w-full aspect-video overflow-hidden bg-stone-100 border border-stone-100 shadow-2xl">
                         <video src="/Videos/Bespoke.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
@@ -80,24 +79,41 @@ export default async function HomePage() {
                     <h3 className="text-4xl font-serif italic text-[#003D4D] mt-8">The Custom Lab</h3>
                 </section>
 
-                {/* --- SECTION 5: LENS GALLERY (Mosaic) --- */}
+                {/* --- SECTION 5: LENS GALLERY --- */}
                 <GalleryMasonry initialPhotos={galleryPhotos} />
 
-                {/* --- SECTION 6: PRINTED DESIGNS (Triptych Gateway) --- */}
+                {/* --- SECTION 6: PRINTED DESIGNS (Fitted Triptych) --- */}
                 <section className="py-24">
                     <Link href="/printed-designs" className="group block">
                         <div className="relative w-full aspect-video flex border border-stone-100 bg-white shadow-2xl overflow-hidden">
-                            {/* Left Video */}
-                            <div className="w-1/3 h-full border-r border-stone-100">
-                                <video src="/Videos/printedDesign1.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+
+                            {/* Left Video: Fitted */}
+                            <div className="w-1/3 h-full border-r border-stone-100 bg-white">
+                                <video
+                                    src="/Videos/printedDesign1.mp4"
+                                    autoPlay muted loop playsInline
+                                    // 🟢 Changed to object-contain to prevent product cropping
+                                    className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                                />
                             </div>
-                            {/* 🟢 Center Image: Full Bleed */}
+
+                            {/* Center Image: Full Bleed */}
                             <div className="w-1/3 h-full overflow-hidden">
-                                <img src="/images/Printed.jpg" alt="Printed Designs Gateway" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                                <img
+                                    src="/images/Printed.jpg"
+                                    alt="Printed Designs Gateway"
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                />
                             </div>
-                            {/* Right Video */}
-                            <div className="w-1/3 h-full border-l border-stone-100">
-                                <video src="/Videos/printedDesign2.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+
+                            {/* Right Video: Fitted */}
+                            <div className="w-1/3 h-full border-l border-stone-100 bg-white">
+                                <video
+                                    src="/Videos/printedDesign2.mp4"
+                                    autoPlay muted loop playsInline
+                                    // 🟢 Changed to object-contain to prevent product cropping
+                                    className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                                />
                             </div>
                         </div>
                         <h3 className="text-4xl font-serif italic text-[#003D4D] mt-8">Printed Designs</h3>
