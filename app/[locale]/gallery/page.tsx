@@ -25,7 +25,7 @@ export default async function GalleryPage() {
                     </p>
                     <div className="h-px w-12 bg-[#C5A059]/30 hidden md:block" />
                     <Link
-                        href="/printed-designs"
+                        href="/printing-guide"
                         className="group flex items-center gap-3 text-[#C5A059] hover:text-white transition-colors"
                     >
                         <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Discover the printing guide</span>
