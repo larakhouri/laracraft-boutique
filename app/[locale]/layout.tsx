@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   title: "Lara Craft Gifts | Bespoke Artisan Goods",
   description: "Discover handcrafted treasures and follow the journey of your bespoke commissions.",
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: '/logo.jpg',
+    shortcut: '/logo.jpg',
+    apple: '/logo.jpg',
   }
 };
 

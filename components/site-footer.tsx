@@ -21,7 +21,7 @@ export function SiteFooter() {
                     <Link href="/" className="block">
                         {/* 🟢 FOOTER LOGO: Increased presence and removed opacity for clarity */}
                         <Image
-                            src="/logo.png"
+                            src="/logo.jpg"
                             alt="LaraCraft"
                             width={250}
                             height={80}

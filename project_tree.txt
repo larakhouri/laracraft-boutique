@@ -250,7 +250,7 @@
 ./public
 ./public/file.svg
 ./public/globe.svg
-./public/logo.png
+./public/logo.jpg
 ./public/next.svg
 ./public/noise.svg
 ./public/placeholder-midnight-teal.svg

@@ -54,7 +54,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                     <div className="flex justify-center items-center">
                         <Link href="/" className="block">
                             <Image
-                                src="/logo.png"
+                                src="/logo.jpg"
                                 alt="LaraCraft"
                                 width={280}
                                 height={100}
