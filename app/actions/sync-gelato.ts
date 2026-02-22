@@ -29,7 +29,7 @@ async function captureToVault(gelatoUrl: string, productId: string) {
 }
 
 /**
- * 🎯 TARGETED SYNC: Updated to handle both direct strings and Form Action data.
+ * 🎯 TARGETED SYNC: Updated to capture deep nested variants.
  */
 export async function syncAllArtisanVaults(targetInput?: string | FormData) {
     const supabase = await createClient()
@@ -85,11 +85,15 @@ export async function syncAllArtisanVaults(targetInput?: string | FormData) {
                     const permanentUrl = await captureToVault(tempUrl, p.id)
                     if (!permanentUrl) continue;
 
+                    // 🟢 CAPTURE VARIANTS: Extract variants regardless of how Gelato formats them
+                    const extractedVariants = p.variants || p.items || [];
+
                     const { error } = await supabase.from(vault.table).upsert({
                         external_id: p.id,
                         title: p.title || p.productName || 'Untitled Design',
                         image_url: permanentUrl,
                         price: p.price || 0,
+                        variants: extractedVariants, // 🟢 Inject the full array here
                         collection_type: vault.table === 'printed_designs' ? 'printed_designs' : 'artisan_asset',
                         updated_at: new Date().toISOString()
                     }, { onConflict: 'external_id' })

@@ -15,7 +15,7 @@ export default async function ProfilePage() {
         .eq('id', user.id)
         .single()
 
-    const safeProfile = profile || { id: user.id, full_name: user.email }
+    const safeProfile = profile || { id: user.id, full_name: user.email, wishlist_ids: [] }
 
     // Fetch Orders
     const { data: orders } = await supabase
@@ -24,11 +24,40 @@ export default async function ProfilePage() {
         .eq('user_id', user.id)
         .order('created_at', { ascending: false })
 
-    // Fetch Wishlist (Cross-referencing items)
-    const { data: wishlist } = await supabase
-        .from('gallery_products')
-        .select('*')
-        .in('id', safeProfile.wishlist_ids || [])
+    // 🟢 MULTI-VAULT WISHLIST ENGINE
+    const wishlistIds = safeProfile.wishlist_ids || [];
+    let completeWishlist: any[] = [];
+
+    if (wishlistIds.length > 0) {
+        // We check every vault where a product could live
+        const vaults = [
+            'gallery_products',
+            'printed_designs',
+            'atelier_products',
+            'products',
+            'printing_guide'
+        ];
+
+        // Format IDs for Supabase string matching
+        const formattedIds = wishlistIds.map((id: string) => `"${id}"`).join(',');
+
+        // Search all tables simultaneously for maximum speed
+        const searchPromises = vaults.map(async (vault) => {
+            const { data } = await supabase
+                .from(vault)
+                .select('*')
+                .or(`id.in.(${formattedIds}),external_id.in.(${formattedIds})`);
+            return data || [];
+        });
+
+        const results = await Promise.all(searchPromises);
+
+        // Flatten the array and remove any accidental duplicates
+        const allFound = results.flat();
+        const uniqueItems = new Map();
+        allFound.forEach(item => uniqueItems.set(item.id || item.external_id, item));
+        completeWishlist = Array.from(uniqueItems.values());
+    }
 
     return (
         <main className="min-h-screen bg-[#fdfcf8] pt-32 pb-24">
@@ -37,7 +66,7 @@ export default async function ProfilePage() {
                 <ProfileClientView
                     profile={safeProfile}
                     orders={orders || []}
-                    wishlist={wishlist || []}
+                    wishlist={completeWishlist}
                 />
             </div>
         </main>

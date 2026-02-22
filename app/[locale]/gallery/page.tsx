@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing';
 export default async function GalleryPage() {
     const supabase = await createClient();
 
-    // 🟢 VAULT FIX: Fetching from gallery_products instead of printed_designs
+    // 🟢 Fetching the core gallery artifacts
     const { data: images } = await supabase
         .from('gallery_products')
         .select('*')
@@ -37,15 +37,27 @@ export default async function GalleryPage() {
             </ArtisanHero>
 
             <div className="max-w-[1800px] mx-auto px-6 py-24">
+                {/* 🟢 MASONRY GRID */}
                 <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
                     {images && images.length > 0 ? (
                         images.map((img, idx) => (
                             <div key={idx} className="break-inside-avoid animate-in fade-in duration-700">
-                                <img
-                                    src={img.image_url}
-                                    alt={img.title || "Gallery Item"}
-                                    className="w-full rounded-sm border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-500"
-                                />
+                                <Link
+                                    href={`/product/${img.external_id || img.id}`}
+                                    className="block group cursor-pointer relative overflow-hidden"
+                                >
+                                    <img
+                                        src={img.image_url}
+                                        alt={img.title || "Gallery Item"}
+                                        className="w-full rounded-sm border border-stone-200 shadow-sm group-hover:shadow-2xl group-hover:scale-[1.02] transition-all duration-700"
+                                    />
+
+                                    {/* Item Label on Hover */}
+                                    <div className="mt-4 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                        <h3 className="font-serif italic text-[#003D4D]">{img.title}</h3>
+                                        <span className="text-[9px] uppercase tracking-widest text-[#C5A059] font-bold">View Artifact →</span>
+                                    </div>
+                                </Link>
                             </div>
                         ))
                     ) : (
