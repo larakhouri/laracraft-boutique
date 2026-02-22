@@ -39,20 +39,32 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
 
     return (
         <>
-            <header className="w-full bg-[#fdfcf8] border-b border-stone-200 fixed top-0 left-0 right-0 z-[1000] transition-all" style={{ forcedColorAdjust: 'none', colorScheme: 'light' }}>
-                <div className="max-w-[1800px] mx-auto w-full px-4 md:px-12 flex items-center justify-between h-20 md:h-24">
+            {/* 🟢 BRAND IMMERSION: bg-[#f8f8f2] to match your logo exactly */}
+            <header className="w-full bg-[#f8f8f2] fixed top-0 left-0 right-0 z-[1000] transition-all" style={{ forcedColorAdjust: 'none', colorScheme: 'light' }}>
+                <div className="max-w-[1800px] mx-auto w-full px-4 md:px-12 flex items-center justify-between h-24 md:h-32">
+
+                    {/* MOBILE HAMBURGER */}
                     <div className="flex md:hidden flex-1">
                         <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 -ml-2 text-[#004d4d]" aria-label="Open Menu">
                             <Menu className="w-6 h-6" />
                         </button>
                     </div>
 
+                    {/* 🟢 LOGO: Significantly larger corner presence */}
                     <div className="flex justify-center items-center">
                         <Link href="/" className="block">
-                            <Image src="/logo.png" alt="LaraCraft" width={160} height={50} priority className="h-10 md:h-14 w-auto object-contain" />
+                            <Image
+                                src="/logo.png"
+                                alt="LaraCraft"
+                                width={280}
+                                height={100}
+                                priority
+                                className="h-20 md:h-28 w-auto object-contain transition-transform hover:scale-105"
+                            />
                         </Link>
                     </div>
 
+                    {/* RIGHT CONTROLS */}
                     <div className="flex-1 flex justify-end items-center gap-4">
                         <div className="hidden md:block">
                             <LanguageSwitcher />
@@ -62,7 +74,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                 </div>
 
                 {/* MOBILE CATEGORY RIBBON */}
-                <div ref={scrollContainerRef} className="md:hidden w-full overflow-x-auto relative border-t border-stone-100 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div ref={scrollContainerRef} className="md:hidden w-full overflow-x-auto relative border-t border-stone-200/50 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <div className="flex items-center px-4 py-2 gap-3 w-max">
                         {SIX_PILLARS.map((link) => {
                             const isActive = pathname === link.href;
@@ -73,7 +85,6 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                                         }`}
                                 >
                                     {getLocalizedName(link)}
-                                    {/* 🟢 LUXURY GOLD LINE (Mobile) */}
                                     <span className={`absolute bottom-1 h-[1.5px] bg-[#BFA05A] transition-all duration-300 ${isActive ? 'w-6' : 'w-0 group-hover:w-6'}`}></span>
                                 </Link>
                             )
@@ -82,7 +93,7 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                 </div>
 
                 {/* DESKTOP PILLARS ROW */}
-                <div className="hidden md:flex w-full justify-center gap-10 py-5 border-t border-stone-100">
+                <div className="hidden md:flex w-full justify-center gap-10 py-5 border-t border-stone-200/50">
                     {SIX_PILLARS.map((link) => {
                         const isActive = pathname === link.href;
                         return (
@@ -92,7 +103,6 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                                     }`}
                             >
                                 {getLocalizedName(link)}
-                                {/* 🟢 LUXURY GOLD LINE (Desktop) - Small, centered, exactly like your sketch */}
                                 <span className={`absolute bottom-0 h-[1.5px] bg-[#BFA05A] transition-all duration-300 ${isActive ? 'w-8' : 'w-0 group-hover:w-8'}`}></span>
                             </Link>
                         )
@@ -100,11 +110,19 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                 </div>
             </header>
 
-            <div className="h-[120px] md:h-[160px] w-full"></div>
+            {/* 🟢 SPACER: Increased to prevent content from hiding under the large logo header */}
+            <div className="h-[140px] md:h-[190px] w-full"></div>
 
+            {/* MOBILE MENU OVERLAY */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
-                    <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className="fixed inset-0 z-[1001] bg-[#fdfcf8] flex flex-col p-8" style={{ forcedColorAdjust: 'none', colorScheme: 'light' }}>
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        className="fixed inset-0 z-[1001] bg-[#f8f8f2] flex flex-col p-8"
+                        style={{ forcedColorAdjust: 'none', colorScheme: 'light' }}
+                    >
                         <div className="flex justify-between items-center mb-12">
                             <span className="font-serif italic text-xl text-[#004d4d]">Menu</span>
                             <button onClick={() => setIsMobileMenuOpen(false)}>
@@ -113,14 +131,23 @@ export default function Navbar({ locale: currentLocale, user, profile }: { local
                         </div>
                         <div className="flex flex-col gap-6">
                             {SIX_PILLARS.map((link) => (
-                                <Link key={link.key} href={link.href} onClick={() => setIsMobileMenuOpen(false)} className={`font-serif italic text-4xl border-b border-stone-100 pb-2 transition-colors ${pathname === link.href ? 'text-[#BFA05A]' : 'text-[#004d4d]'}`}>
+                                <Link
+                                    key={link.key}
+                                    href={link.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className={`font-serif italic text-4xl border-b border-stone-100 pb-2 transition-colors ${pathname === link.href ? 'text-[#BFA05A]' : 'text-[#004d4d]'}`}
+                                >
                                     {getLocalizedName(link)}
                                 </Link>
                             ))}
                         </div>
                         <div className="mt-auto flex gap-6 pt-6 border-t border-stone-100">
                             {['en', 'de', 'ar'].map((lang) => (
-                                <button key={lang} onClick={() => { switchLocale(lang); setIsMobileMenuOpen(false); }} className={`uppercase tracking-tighter text-sm ${locale === lang ? 'text-[#004d4d] font-bold underline' : 'text-stone-400'}`}>
+                                <button
+                                    key={lang}
+                                    onClick={() => { switchLocale(lang); setIsMobileMenuOpen(false); }}
+                                    className={`uppercase tracking-tighter text-sm ${locale === lang ? 'text-[#004d4d] font-bold underline' : 'text-stone-400'}`}
+                                >
                                     {lang}
                                 </button>
                             ))}

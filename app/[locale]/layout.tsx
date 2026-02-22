@@ -33,7 +33,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#fdfcf8',
+  // 🟢 UPDATED: Matching the viewport theme to the logo color
+  themeColor: '#f8f8f2',
   colorScheme: 'light',
   width: 'device-width',
   initialScale: 1,
@@ -70,12 +71,14 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <body
-        className={`${fontVariable} ${fontFamily} antialiased bg-[#fdfcf8] text-foreground relative min-h-screen flex flex-col`}
+        // 🟢 UPDATED: bg-[#f8f8f2] to match your logo exactly
+        className={`${fontVariable} ${fontFamily} antialiased bg-[#f8f8f2] text-foreground relative min-h-screen flex flex-col`}
         style={{
           forcedColorAdjust: 'none',
           colorScheme: 'light'
         }}
       >
+        {/* Subtle noise overlay for texture */}
         <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-[10] mix-blend-multiply bg-[url('/noise.svg')]"></div>
 
         <NextIntlClientProvider messages={messages}>
